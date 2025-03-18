@@ -128,3 +128,47 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+.venv/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Security
+.env
+*.key
+
+# Build & Distribution
+build/
+dist/
+*.egg-info/
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Frontend
+node_modules/
+static/dist/
+
+# Misc
+.tmp/

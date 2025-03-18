@@ -1,0 +1,19 @@
+{
+  "name": "adf-website",
+  "version": "1.0.0",
+  "description": "adaptive data fusion custom website with the node homepage design",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "bootstrap": "^5.3.3",
+    "d3": "^7.9.0",
+    "gsap": "^3.12.7"
+  }
+}
