@@ -1,0 +1,54 @@
+// src/pages/NeuroTechNetworkPage/NeuroTechNetworkPage.module.scss
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.neurotechNetworkContainer {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $background-color;
+
+  @include md {
+    padding: $spacing-md;
+  }
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+
+  h1 {
+    color: $primary-color;
+    font-size: 2.5rem;
+    margin-bottom: $spacing-md;
+
+    @include sm {
+      font-size: 2rem;
+    }
+  }
+}
+
+.capabilitiesGrid, 
+.featuresGrid,
+.optimizationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-lg;
+
+  @include sm {
+    grid-template-columns: 1fr;
+  }
+}
+
+.capabilityCard,
+.featureCard,
+.optimizationCard {
+  @include card;
+  padding: $spacing-lg;
+  text-align: center;
+
+  h3 {
+    color: $primary-color;
+    margin-bottom: $spacing-md;
+  }
+}

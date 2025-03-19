@@ -1,0 +1,69 @@
+// src/pages/HomePage/HomePage.module.scss
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.homeContainer {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $background-color;
+
+  @include md {
+    padding: $spacing-md;
+  }
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  
+  h1 {
+    color: $primary-color;
+    font-size: 2.5rem;
+    margin-bottom: $spacing-md;
+
+    @include sm {
+      font-size: 2rem;
+    }
+  }
+
+  p {
+    color: $dark-text;
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+
+    @include sm {
+      font-size: 1rem;
+    }
+  }
+}
+
+.valueProposition {
+  text-align: center;
+  
+  h2 {
+    color: $primary-color;
+    margin-bottom: $spacing-lg;
+  }
+
+  .valueGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-md;
+
+    @include sm {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .valueItem {
+    @include card;
+    padding: $spacing-md;
+
+    h3 {
+      color: $primary-color;
+      margin-bottom: $spacing-sm;
+    }
+  }
+}

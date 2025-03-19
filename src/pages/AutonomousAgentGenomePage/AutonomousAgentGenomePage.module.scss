@@ -1,0 +1,62 @@
+// src/pages/AutonomousAgentGenomePage/AutonomousAgentGenomePage.module.scss
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.autonomousAgentGenomeContainer {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $background-color;
+
+  @include md {
+    padding: $spacing-md;
+  }
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+
+  h1 {
+    color: $primary-color;
+    font-size: 2.5rem;
+    margin-bottom: $spacing-md;
+
+    @include sm {
+      font-size: 2rem;
+    }
+  }
+}
+
+.capabilitiesGrid,
+.algorithmGrid,
+.interpretabilityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-lg;
+
+  @include sm {
+    grid-template-columns: 1fr;
+  }
+}
+
+.capabilityCard,
+.algorithmCategory,
+.interpretabilityCard {
+  @include card;
+  padding: $spacing-lg;
+  text-align: center;
+
+  h3 {
+    color: $primary-color;
+    margin-bottom: $spacing-md;
+  }
+}
+
+.capabilityIcons {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+  color: $primary-color;
+}

@@ -1,0 +1,39 @@
+:root {
+    --primary-blue: #1E3A8A;
+    --accent-blue: #4F94DB;
+    --light-gray: #f4f6f8;
+    --dark-text: #212121;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--light-gray);
+    margin: 0;
+    padding: 0;
+}
+
+#mindmap-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#mindmap {
+    width: 100%;
+    height: 100%;
+}
+
+.node circle {
+    fill: var(--primary-blue);
+    stroke: var(--accent-blue);
+}
+
+.node text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+}
+
+.link {
+    stroke: var(--accent-blue);
+    stroke-opacity: 0.4;
+}

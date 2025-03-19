@@ -1,0 +1,43 @@
+// src/pages/CaseStudiesPage/CaseStudiesPage.module.scss
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.caseStudiesContainer {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $background-color;
+
+  @include md {
+    padding: $spacing-md;
+  }
+
+  h1 {
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.caseStudyCard {
+  @include card;
+  margin-bottom: $spacing-lg;
+  padding: $spacing-lg;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: $spacing-sm;
+  }
+
+  h3 {
+    color: $secondary-color;
+    margin-bottom: $spacing-sm;
+  }
+
+  .caseStudyDetails {
+    ul {
+      padding-left: $spacing-md;
+      margin-top: $spacing-sm;
+    }
+  }
+}

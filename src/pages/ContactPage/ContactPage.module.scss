@@ -1,0 +1,45 @@
+// src/pages/ContactPage/ContactPage.module.scss
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.contactContainer {
+  max-width: $breakpoint-md;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $background-color;
+
+  @include md {
+    padding: $spacing-md;
+  }
+}
+
+.contactForm {
+  display: grid;
+  gap: $spacing-md;
+
+  input, textarea {
+    width: 100%;
+    padding: $spacing-sm;
+    border: 1px solid $light-text;
+    border-radius: $border-radius-sm;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
+  }
+
+  button {
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    @include transition-smooth;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}

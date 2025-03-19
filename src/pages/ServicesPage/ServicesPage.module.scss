@@ -1,0 +1,42 @@
+// src/pages/ServicesPage/ServicesPage.module.scss
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.servicesContainer {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $background-color;
+
+  @include md {
+    padding: $spacing-md;
+  }
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-lg;
+
+  @include sm {
+    grid-template-columns: 1fr;
+  }
+}
+
+.serviceCard {
+  @include card;
+  @include flex-column;
+  padding: $spacing-lg;
+  text-align: center;
+
+  .serviceIcon {
+    font-size: 3rem;
+    color: $primary-color;
+    margin-bottom: $spacing-md;
+  }
+
+  h3 {
+    color: $primary-color;
+    margin-bottom: $spacing-sm;
+  }
+}

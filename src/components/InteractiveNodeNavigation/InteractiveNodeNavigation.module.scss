@@ -1,0 +1,58 @@
+// src/components/InteractiveNodeNavigation/InteractiveNodeNavigation.module.scss
+.navigationContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+  }
+  
+  .link {
+    fill: none;
+    stroke: #4F94DB;
+    stroke-opacity: 0.4;
+    stroke-width: 1.5px;
+    transition: all 0.3s ease;
+  }
+  
+  .node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      .nodeCircle {
+        fill: #1E3A8A;
+        stroke: #1E3A8A;
+      }
+  
+      .nodeLabel {
+        font-weight: bold;
+      }
+    }
+  }
+  
+  .nodeCircle {
+    fill: #f4f6f8;
+    stroke: #4F94DB;
+    stroke-width: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .selectedNodeCircle {
+    @extend .nodeCircle;
+    fill: #1E3A8A;
+    stroke: #1E3A8A;
+  }
+  
+  .nodeLabel {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    fill: #212121;
+    transition: all 0.3s ease;
+  }
+  
+  .nodeIcon {
+    font-size: 12px;
+    fill: #4F94DB;
+  }

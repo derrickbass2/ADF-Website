@@ -1,0 +1,63 @@
+// src/styles/mixins.scss
+@import './variables.scss';
+
+// Responsive Mixins
+@mixin xs {
+  @media (max-width: #{$breakpoint-xs}) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: #{$breakpoint-sm}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: #{$breakpoint-md}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (max-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (max-width: #{$breakpoint-xl}) {
+    @content;
+  }
+}
+
+// Flexbox Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Transition Mixins
+@mixin transition-smooth {
+  transition: all 0.3s ease-in-out;
+}
+
+// Card Mixins
+@mixin card {
+  background-color: $white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-subtle;
+  @include transition-smooth;
+
+  &:hover {
+    box-shadow: $shadow-medium;
+    transform: translateY(-5px);
+  }
+}

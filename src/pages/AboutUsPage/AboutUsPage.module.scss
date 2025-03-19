@@ -1,0 +1,120 @@
+// /Users/dbass/Documents/GitHub/ADF-Website/src/pages/AboutUsPage/AboutUsPage.module.scss
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.aboutContainer {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $background-color;
+
+  @include md {
+    padding: $spacing-md;
+  }
+}
+
+.missionStatement {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+
+  h1 {
+    color: $primary-color;
+    font-size: 2.5rem;
+    margin-bottom: $spacing-md;
+
+    @include sm {
+      font-size: 2rem;
+    }
+  }
+
+  p {
+    color: $dark-text;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+.teamSection {
+  margin-bottom: $spacing-xl;
+
+  h2 {
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-lg;
+
+  @include sm {
+    grid-template-columns: 1fr;
+  }
+}
+
+.teamMemberCard {
+  @include card;
+  padding: $spacing-lg;
+  text-align: center;
+
+  .memberImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: $spacing-md;
+  }
+
+  h3 {
+    color: $primary-color;
+    margin-bottom: $spacing-sm;
+  }
+
+  h4 {
+    color: $secondary-color;
+    margin-bottom: $spacing-sm;
+  }
+
+  p {
+    color: $dark-text;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+.valuesSection {
+  background-color: $white;
+  padding: $spacing-lg;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-subtle;
+
+  h2 {
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-lg;
+
+  @include sm {
+    grid-template-columns: 1fr;
+  }
+}
+
+.valueItem {
+  @include card;
+  padding: $spacing-md;
+  text-align: center;
+
+  h3 {
+    color: $primary-color;
+    margin-bottom: $spacing-sm;
+  }
+}
