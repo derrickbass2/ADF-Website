@@ -1,0 +1,134 @@
+// src/pages/ResearchProjectsPage/ResearchProjectsPage.module.scss
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.researchProjectsContainer {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $background-color;
+
+  @include md {
+    padding: $spacing-md;
+  }
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+
+  h1 {
+    color: $primary-color;
+    font-size: 2.5rem;
+    margin-bottom: $spacing-md;
+
+    @include sm {
+      font-size: 2rem;
+    }
+  }
+
+  p {
+    color: $dark-text;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+.domainFilter {
+  margin-bottom: $spacing-lg;
+  text-align: center;
+
+  .filterButtons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+
+    button {
+      background-color: $white;
+      border: 1px solid $primary-color;
+      color: $primary-color;
+      padding: $spacing-sm $spacing-md;
+      border-radius: $border-radius-sm;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover, &.activeFilter {
+        background-color: $primary-color;
+        color: $white;
+      }
+    }
+  }
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-lg;
+
+  @include sm {
+    grid-template-columns: 1fr;
+  }
+}
+
+.projectCard {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-lg;
+
+  .projectMeta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $spacing-md;
+
+    .domain, .status {
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $border-radius-sm;
+      font-size: 0.8rem;
+    }
+
+    .domain {
+      background-color: $secondary-color;
+      color: $white;
+    }
+
+    .status {
+      background-color: lighten($primary-color, 40%);
+      color: $primary-color;
+    }
+  }
+
+  .keyFindings {
+    margin-top: $spacing-md;
+
+    h4 {
+      margin-bottom: $spacing-sm;
+      color: $primary-color;
+    }
+
+    ul {
+      padding-left: $spacing-md;
+    }
+  }
+
+  .projectFooter {
+    margin-top: auto;
+
+    .keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-xs;
+      margin-top: $spacing-sm;
+
+      .keyword {
+        background-color: lighten($secondary-color, 40%);
+        color: $secondary-color;
+        padding: $spacing-xs $spacing-sm;
+        border-radius: $border-radius-sm;
+        font-size: 0.7rem;
+      }
+    }
+  }
+}

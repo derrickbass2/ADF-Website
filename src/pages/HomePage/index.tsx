@@ -1,10 +1,11 @@
-// src/pages/HomePage/index.tsx
+// /Users/dbass/Documents/GitHub/ADF-Website/src/pages/HomePage/index.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
 import InteractiveNodeNavigation from '@components/InteractiveNodeNavigation';
 import { navigationNodeData } from '@models/NodeTypes';
 import NodeHomepage from '@components/NodeHomepage';
 import { initialNodeData } from '@components/NodeHomepage/NodeTypes';
+import ResearchTimeline from '@components/ResearchTimeline';
 import styles from './HomePage.module.scss';
 
 const HomePage: React.FC = () => {
@@ -54,6 +55,11 @@ const HomePage: React.FC = () => {
       </section>
 
       <NodeHomepage data={initialNodeData} />
+      
+      <section className={styles.researchSection}>
+        <h2>Our Research Journey</h2>
+        <ResearchTimeline />
+      </section>
       
       <section className={styles.valueProposition}>
         <h2>Transforming Data into Actionable Intelligence</h2>

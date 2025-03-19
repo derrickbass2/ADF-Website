@@ -1,8 +1,18 @@
 // src/services/openaiService.ts
 import OpenAI from 'openai';
 
+// Add type definition for Vite environment variables
+interface ImportMetaEnv {
+  VITE_OPENAI_API_KEY: string;
+  [key: string]: any;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
 class OpenAIService {
-  private client: OpenAI;
+  private readonly client: OpenAI;
 
   constructor() {
     this.client = new OpenAI({
@@ -11,7 +21,7 @@ class OpenAIService {
     });
   }
 
-  async generateText(prompt: string, model: string = 'gpt-4o'): Promise<string> {
+  async generateText(prompt: string, model: string = 'gpt-3.5-turbo'): Promise<string> {
     try {
       const completion = await this.client.chat.completions.create({
         model: model,
@@ -21,7 +31,7 @@ class OpenAIService {
         }]
       });
 
-      return completion.choices[0].message.content || 'No response generated';
+      return completion.choices[0].message.content ?? 'No response generated';
     } catch (error) {
       console.error('OpenAI API Error:', error);
       throw error;
@@ -37,7 +47,7 @@ class OpenAIService {
         size: size
       });
 
-      return response.data[0].url || '';
+      return response.data[0].url ?? '';
     } catch (error) {
       console.error('OpenAI Image Generation Error:', error);
       throw error;
@@ -45,8 +55,7 @@ class OpenAIService {
   }
 
   // Add more methods as needed, like code generation, translation, etc.
-// Add to openaiService.ts
-private async retryWithBackoff<T>(
+  private async retryWithBackoff<T>(
     fn: () => Promise<T>, 
     maxRetries = 3
   ): Promise<T> {
@@ -66,6 +75,7 @@ private async retryWithBackoff<T>(
       }
     }
     throw new Error('Max retries exceeded');
-  }}
+  }
+}
 
-export const openaiService = new OpenAI();
+export const openaiService = new OpenAIService();

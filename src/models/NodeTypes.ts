@@ -54,6 +54,24 @@ export const navigationNodeData: NodeData = {
             ]
         },
         {
+            id: 'research',
+            name: 'Research',
+            route: '/research',
+            icon: 'fa-book-open',
+            children: [
+                {
+                    id: 'research-projects',
+                    name: 'Research Projects',
+                    route: '/research/projects'
+                },
+                {
+                    id: 'publications',
+                    name: 'Publications',
+                    route: '/research/publications'
+                }
+            ]
+        },
+        {
             id: 'case-studies',
             name: 'Case Studies',
             route: '/case-studies',
@@ -70,6 +88,12 @@ export const navigationNodeData: NodeData = {
                     route: '/case-studies/compass-group'
                 }
             ]
+        },
+        {
+            id: 'about',
+            name: 'About',
+            route: '/about',
+            icon: 'fa-users'
         },
         {
             id: 'contact',

@@ -1,25 +1,39 @@
 // src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import InteractiveNodeNavigation from './components/InteractiveNodeNavigation';
+import { navigationNodeData } from './models/NodeTypes';
+import ResearchTimeline from './components/ResearchTimeline';
 
 // Lazy load pages
-const HomePage = React.lazy(() => import('./pages/HomePage').then(module => ({ default: module.HomePage || module.default || module })));
-const ServicesPage = React.lazy(() => import('./pages/ServicesPage').then(module => ({ default: module.ServicesPage || module.default || module })));
-const CaseStudiesPage = React.lazy(() => import('./pages/CaseStudiesPage').then(module => ({ default: module.CaseStudiesPage || module.default || module })));
+const HomePage = React.lazy(() => import('./pages/HomePage'));
+const ServicesPage = React.lazy(() => import('./pages/ServicesPage'));
+const CaseStudiesPage = React.lazy(() => import('./pages/CaseStudiesPage'));
 const ContactPage = React.lazy(() => import('./pages/ContactPage'));
+const SparkEnginePage = React.lazy(() => import('./pages/SparkEnginePage'));
+const NeuroTechNetworkPage = React.lazy(() => import('./pages/NeuroTechNetworkPage'));
+const AutonomousAgentGenomePage = React.lazy(() => import('./pages/AutonomousAgentGenomePage'));
+const ResearchProjectsPage = React.lazy(() => import('./pages/ResearchProjectsPage'));
+const AboutUsPage = React.lazy(() => import('./pages/AboutUsPage'));
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <div className="app-container">
+      <InteractiveNodeNavigation data={navigationNodeData} />
       <React.Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/spark-engine" element={<SparkEnginePage />} />
+          <Route path="/neurotech" element={<NeuroTechNetworkPage />} />
+          <Route path="/autonomous-agent-genome" element={<AutonomousAgentGenomePage />} />
+          <Route path="/research/projects" element={<ResearchProjectsPage />} />
+          <Route path="/about" element={<AboutUsPage />} />
         </Routes>
       </React.Suspense>
-    </Router>
+    </div>
   );
 };
 

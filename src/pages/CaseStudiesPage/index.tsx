@@ -45,8 +45,8 @@ const CaseStudiesPage: React.FC = () => {
       transition={{ duration: 0.5 }}
     >
       <h1>Case Studies</h1>
-      {caseStudies.map((study, index) => (
-        <div key={index} className={styles.caseStudyCard}>
+      {caseStudies.map((study) => (
+        <div key={study.client} className={styles.caseStudyCard}>
           <h2>{study.client}</h2>
           <h3>{study.industry}</h3>
           <div className={styles.caseStudyDetails}>
@@ -56,8 +56,8 @@ const CaseStudiesPage: React.FC = () => {
             <p>{study.solution}</p>
             <h4>Impact</h4>
             <ul>
-              {study.impact.map((item, i) => (
-                <li key={i}>{item}</li>
+              {study.impact.map((item) => (
+                <li key={`${study.client}-${item}`}>{item}</li>
               ))}
             </ul>
           </div>
@@ -67,4 +67,4 @@ const CaseStudiesPage: React.FC = () => {
   );
 };
 
-eport default CaseStudiesPage;
+export default CaseStudiesPage;
