@@ -120,8 +120,8 @@ const SparkEnginePage: React.FC = () => {
       <section className={styles.keyCapabilitiesSection}>
         <h2>Core Capabilities</h2>
         <div className={styles.capabilitiesGrid}>
-          {keyCapabilities.map((capability, index) => (
-            <div key={index} className={styles.capabilityCard}>
+          {keyCapabilities.map((capability) => (
+            <div key={capability.title} className={styles.capabilityCard}>
               <div className={styles.capabilityIcon}>
                 <i className={`fas fa-${capability.icon}`}></i>
               </div>
@@ -135,8 +135,8 @@ const SparkEnginePage: React.FC = () => {
       <section className={styles.personasSection}>
         <h2>Real-World Use Cases</h2>
         <div className={styles.personasGrid}>
-          {personas.map((persona, index) => (
-            <div key={index} className={styles.personaCard}>
+          {personas.map((persona) => (
+            <div key={persona.name} className={styles.personaCard}>
               <h3>{persona.name} - {persona.role}</h3>
               <div className={styles.personaDetails}>
                 <h4>Goal</h4>
@@ -144,15 +144,15 @@ const SparkEnginePage: React.FC = () => {
                 
                 <h4>Challenges</h4>
                 <ul>
-                  {persona.challenges.map((challenge, challengeIndex) => (
-                    <li key={challengeIndex}>{challenge}</li>
+                  {persona.challenges.map((challenge) => (
+                    <li key={challenge}>{challenge}</li>
                   ))}
                 </ul>
                 
                 <h4>Journey</h4>
                 <ol>
-                  {persona.journey.map((step, stepIndex) => (
-                    <li key={stepIndex}>{step}</li>
+                  {persona.journey.map((step) => (
+                    <li key={step}>{step}</li>
                   ))}
                 </ol>
               </div>
@@ -164,12 +164,12 @@ const SparkEnginePage: React.FC = () => {
       <section className={styles.performanceSection}>
         <h2>Performance Metrics</h2>
         <div className={styles.performanceGrid}>
-          {performanceMetrics.map((category, index) => (
-            <div key={index} className={styles.performanceCategory}>
+          {performanceMetrics.map((category) => (
+            <div key={category.category} className={styles.performanceCategory}>
               <h3>{category.category}</h3>
               <ul>
-                {category.metrics.map((metric, metricIndex) => (
-                  <li key={metricIndex}>{metric}</li>
+                {category.metrics.map((metric) => (
+                  <li key={metric}>{metric}</li>
                 ))}
               </ul>
             </div>

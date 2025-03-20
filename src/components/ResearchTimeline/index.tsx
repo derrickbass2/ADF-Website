@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { motion } from 'framer-motion';
 import styles from './ResearchTimeline.module.scss';
 
-interface ResearchNode {
+interface ResearchNode extends d3.SimulationNodeDatum {
   id: string;
   title: string;
   year: number;

@@ -2,10 +2,11 @@ import { combineReducers } from '@reduxjs/toolkit';
 
 // Define your reducers here
 const exampleReducer = (state = {}, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
+  // If we had specific action types, they would be handled with if/else statements
+  // Example: if (action.type === 'SOME_ACTION') { return {...state, someValue: action.payload}; }
+  
+  // Default case - just return the state
+  return state;
 };
 
 // Combine your reducers

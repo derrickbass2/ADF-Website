@@ -42,8 +42,8 @@ const ServicesPage: React.FC = () => {
     >
       <h1>Our Services</h1>
       <div className={styles.serviceGrid}>
-        {services.map((service, index) => (
-          <div key={index} className={styles.serviceCard}>
+        {services.map((service) => (
+          <div key={service.title} className={styles.serviceCard}>
             <div className={styles.serviceIcon}>
               <i className={`fas fa-${service.icon}`}></i>
             </div>

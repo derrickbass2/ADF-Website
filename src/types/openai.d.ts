@@ -1,5 +1,6 @@
 // src/types/openai.d.ts
-import { ChatCompletion, ImagesResponse } from 'openai';
+import type { ChatCompletionCreateParams } from 'openai/resources/chat';
+import type { ImagesResponse } from 'openai/resources/images';
 
 declare module 'openai' {
   export interface OpenAITextResponse {
@@ -23,12 +24,11 @@ declare module 'openai' {
     };
   }
 }
-
 // Extend existing types if needed
-export interface CustomChatCompletion extends ChatCompletion {
+export type CustomChatCompletion = ChatCompletionCreateParams & {
   processedContent?: string;
-}
+};
 
-export interface CustomImagesResponse extends ImagesResponse {
+export type CustomImagesResponse = ImagesResponse & {
   processedUrls?: string[];
-}
+};

@@ -101,7 +101,7 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({ d
       .attr('class', styles.nodeLabel);
     
     // Optional: Add icons if available
-    node.filter((d) => d.data.icon)
+    node.filter((d) => d.data.icon !== undefined)
       .append('text')
       .attr('class', (d) => `fas ${d.data.icon} ${styles.nodeIcon}`)
       .attr('x', -20)

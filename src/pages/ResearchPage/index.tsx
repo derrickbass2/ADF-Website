@@ -58,8 +58,8 @@ const ResearchPage: React.FC = () => {
       <section className={styles.publicationsSection}>
         <h2>Cutting-Edge Publications</h2>
         <div className={styles.publicationGrid}>
-          {researchProjects.map((project, index) => (
-            <div key={index} className={styles.publicationCard}>
+          {researchProjects.map((project) => (
+            <div key={project.title} className={styles.publicationCard}>
               <div className={styles.publicationHeader}>
                 <h3>{project.title}</h3>
                 <span className={styles.domainTag}>{project.domain}</span>
