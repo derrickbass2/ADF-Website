@@ -1,5 +1,5 @@
 // src/styles/mixins.scss
-@import './variables.scss';
+@use './variables.scss' as *;
 
 // Responsive Mixins
 @mixin xs {

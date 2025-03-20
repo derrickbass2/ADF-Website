@@ -1,6 +1,6 @@
 // src/pages/CaseStudiesPage/CaseStudiesPage.module.scss
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@use '../../styles/variables.scss';
+@use '../../styles/mixins.scss';
 
 .caseStudiesContainer {
   max-width: $breakpoint-lg;

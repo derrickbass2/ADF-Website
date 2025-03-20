@@ -1,6 +1,6 @@
 // src/pages/AutonomousAgentGenomePage/AutonomousAgentGenomePage.module.scss
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@use '../../styles/variables.scss';
+@use '../../styles/mixins.scss';
 
 .autonomousAgentGenomeContainer {
   max-width: $breakpoint-lg;

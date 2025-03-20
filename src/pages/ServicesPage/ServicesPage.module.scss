@@ -1,6 +1,6 @@
 // src/pages/ServicesPage/ServicesPage.module.scss
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@use '../../styles/variables.scss';
+@use '../../styles/mixins.scss';
 
 .servicesContainer {
   max-width: $breakpoint-lg;

@@ -1,6 +1,6 @@
 // src/pages/ResearchProjectsPage/ResearchProjectsPage.module.scss
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@use '../../styles/variables.scss';
+@use '../../styles/mixins.scss';
 
 .researchProjectsContainer {
   max-width: $breakpoint-lg;

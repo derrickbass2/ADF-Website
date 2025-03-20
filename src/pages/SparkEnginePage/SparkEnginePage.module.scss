@@ -1,4 +1,5 @@
-// src/pages/SparkEnginePage/SparkEnginePage.module.scss
+@use '../../styles/variables.scss';
+@use '../../styles/mixins.scss';// src/pages/SparkEnginePage/SparkEnginePage.module.scss
 .sparkEngineContainer {
     max-width: 1200px;
     margin: 0 auto;

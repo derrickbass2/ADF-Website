@@ -13,7 +13,7 @@ const ContactPage = React.lazy(() => import('./pages/ContactPage'));
 const SparkEnginePage = React.lazy(() => import('./pages/SparkEnginePage'));
 const NeuroTechNetworkPage = React.lazy(() => import('./pages/NeuroTechNetworkPage'));
 const AutonomousAgentGenomePage = React.lazy(() => import('./pages/AutonomousAgentGenomePage'));
-const ResearchProjectsPage = React.lazy(() => import('./pages/ResearchProjectsPage'));
+const ResearchPage = React.lazy(() => import('./pages/ResearchPage')); // Updated import
 const AboutUsPage = React.lazy(() => import('./pages/AboutUsPage'));
 
 const App: React.FC = () => {
@@ -29,7 +29,7 @@ const App: React.FC = () => {
           <Route path="/spark-engine" element={<SparkEnginePage />} />
           <Route path="/neurotech" element={<NeuroTechNetworkPage />} />
           <Route path="/autonomous-agent-genome" element={<AutonomousAgentGenomePage />} />
-          <Route path="/research/projects" element={<ResearchProjectsPage />} />
+          <Route path="/research/projects" element={<ResearchPage />} /> // Updated route
           <Route path="/about" element={<AboutUsPage />} />
         </Routes>
       </React.Suspense>

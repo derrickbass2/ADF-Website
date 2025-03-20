@@ -1,7 +1,7 @@
 // src/pages/AutonomousAgentGenomePage/index.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import styles from './AutonomousAgentGenomePage.module.css';
+import styles from './AutonomousAgentGenomePage.module.scss';
 
 const AutonomousAgentGenomePage: React.FC = () => {
   const coreCapabilities = [
@@ -22,6 +22,9 @@ const AutonomousAgentGenomePage: React.FC = () => {
       title: 'Continuous Learning',
       description: 'Dynamic model updating and incremental learning capabilities.',
       icons: ['infinity', 'refresh', 'expand']
+    }
+  ];
+
   const algorithmCategories = [
     {
       id: 'traditional-ml',
@@ -42,11 +45,10 @@ const AutonomousAgentGenomePage: React.FC = () => {
         {id: 'cnn', name: 'Convolutional Neural Networks'},
         {id: 'rnn', name: 'Recurrent Neural Networks'},
         {id: 'transformers', name: 'Transformers'},
-        {id: 'gan', name: 'Generative Adversarial Networks'},
-        {id: 'rl', name: 'Reinforcement Learning Models'},
-        {id: 'gnn', name: 'Graph Neural Networks'}
       ]
     }
+  ];
+
   const interpretabilityFeatures = [
     {
       id: 'feature-importance',
@@ -61,14 +63,9 @@ const AutonomousAgentGenomePage: React.FC = () => {
       technique: 'LIME (Local Interpretable Model-agnostic Explanations)'
     },
     {
-      id: 'model-visualization',
-      name: 'Model Visualization',
-      description: 'Visual representations of model behavior',
-      technique: 'Partial Dependence Plots, Saliency Maps'
-    }
-  ];
-      name: 'Model Visualization',
-      description: 'Visual representations of model behavior',
+      id: 'visual-interpretation',
+      name: 'Visual Interpretation',
+      description: 'Visualize model decision processes',
       technique: 'Partial Dependence Plots, Saliency Maps'
     }
   ];
@@ -82,11 +79,11 @@ const AutonomousAgentGenomePage: React.FC = () => {
     >
       <section className={styles.heroSection}>
         <h1>Autonomous Agent (AA) Genome</h1>
-        <p>
+        <div className={styles.capabilitiesContainer}>
           {coreCapabilities.map((capability) => (
             <div key={capability.id} className={styles.capabilityCard}>
               <div className={styles.capabilityIcons}>
-                {capability.icons.map((icon) => (
+                {capability.icons.map((icon: string) => (
                   <i key={`${capability.id}-${icon}`} className={`fas fa-${icon}`}></i>
                 ))}
               </div>
@@ -94,12 +91,9 @@ const AutonomousAgentGenomePage: React.FC = () => {
               <p>{capability.description}</p>
             </div>
           ))}
-                {capability.icons.map((icon, iconIndex) => (
-                  <i key={iconIndex} className={`fas fa-${icon}`}></i>
-                ))}
-              </div>
-              <h3>{capability.title}</h3>
-              <p>{capability.description}</p>
+        </div>
+
+        <div className={styles.algorithmsContainer}>
           {algorithmCategories.map((category) => (
             <div key={category.id} className={styles.algorithmCategory}>
               <h3>{category.title}</h3>
@@ -110,22 +104,11 @@ const AutonomousAgentGenomePage: React.FC = () => {
               </ul>
             </div>
           ))}
-              <h3>{category.title}</h3>
-              <ul>
-                {category.algorithms.map((algo, algoIndex) => (
-                  <li key={algoIndex}>{algo}</li>
-                ))}
-              </ul>
+        </div>
+
+        <div className={styles.interpretabilityContainer}>
           {interpretabilityFeatures.map((feature) => (
             <div key={feature.id} className={styles.interpretabilityCard}>
-              <h3>{feature.name}</h3>
-              <p>{feature.description}</p>
-              <div className={styles.techniqueBadge}>
-                {feature.technique}
-              </div>
-            </div>
-          ))}
-            <div key={index} className={styles.interpretabilityCard}>
               <h3>{feature.name}</h3>
               <p>{feature.description}</p>
               <div className={styles.techniqueBadge}>

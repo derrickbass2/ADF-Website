@@ -1,6 +1,6 @@
 // /Users/dbass/Documents/GitHub/ADF-Website/src/pages/ResearchPage/ResearchPage.module.scss
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@use '../../styles/variables.scss';
+@use '../../styles/mixins.scss';
 
 .researchContainer {
   max-width: $breakpoint-lg;

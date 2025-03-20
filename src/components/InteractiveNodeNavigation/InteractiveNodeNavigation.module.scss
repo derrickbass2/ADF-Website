@@ -1,4 +1,5 @@
-// src/components/InteractiveNodeNavigation/InteractiveNodeNavigation.module.scss
+@use '../../styles/variables.scss';
+@use '../../styles/mixins.scss';// src/components/InteractiveNodeNavigation/InteractiveNodeNavigation.module.scss
 .navigationContainer {
     position: fixed;
     top: 0;
