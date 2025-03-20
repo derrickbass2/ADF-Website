@@ -1,42 +1,42 @@
 // src/pages/ServicesPage/ServicesPage.module.scss
-@use '../../styles/variables.scss';
-@use '../../styles/mixins.scss';
+@use "@/styles/variables.scss" as vars;
+@use "@/styles/mixins.scss" as mixins;
 
 .servicesContainer {
-  max-width: $breakpoint-lg;
+  max-width: vars.$breakpoint-lg;
   margin: 0 auto;
-  padding: $spacing-lg;
-  background-color: $background-color;
+  padding: vars.$spacing-lg;
+  background-color: vars.$background-color;
 
-  @include md {
-    padding: $spacing-md;
+  @include mixins.md {
+    padding: vars.$spacing-md;
   }
 }
 
 .serviceGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: $spacing-lg;
+  gap: vars.$spacing-lg;
 
-  @include sm {
+  @include mixins.sm {
     grid-template-columns: 1fr;
   }
 }
 
 .serviceCard {
-  @include card;
-  @include flex-column;
-  padding: $spacing-lg;
+  @include mixins.card;
+  @include mixins.flex-column;
+  padding: vars.$spacing-lg;
   text-align: center;
 
   .serviceIcon {
     font-size: 3rem;
-    color: $primary-color;
-    margin-bottom: $spacing-md;
+    color: vars.$primary-color;
+    margin-bottom: vars.$spacing-md;
   }
 
   h3 {
-    color: $primary-color;
-    margin-bottom: $spacing-sm;
+    color: vars.$primary-color;
+    margin-bottom: vars.$spacing-sm;
   }
 }

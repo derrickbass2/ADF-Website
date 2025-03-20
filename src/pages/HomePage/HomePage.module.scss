@@ -1,39 +1,39 @@
 // src/pages/HomePage/HomePage.module.scss
-@use '../../styles/variables.scss';
-@use '../../styles/mixins.scss';
+@use "@/styles/variables.scss" as vars;
+@use "@/styles/mixins.scss" as mixins;
 
 .homeContainer {
-  max-width: $breakpoint-lg;
+  max-width: vars.$breakpoint-lg;
   margin: 0 auto;
-  padding: $spacing-lg;
-  background-color: $background-color;
+  padding: vars.$spacing-lg;
+  background-color: vars.$background-color;
 
-  @include md {
-    padding: $spacing-md;
+  @include mixins.md {
+    padding: vars.$spacing-md;
   }
 }
 
 .heroSection {
   text-align: center;
-  margin-bottom: $spacing-xl;
+  margin-bottom: vars.$spacing-xl;
   
   h1 {
-    color: $primary-color;
+    color: vars.$primary-color;
     font-size: 2.5rem;
-    margin-bottom: $spacing-md;
+    margin-bottom: vars.$spacing-md;
 
-    @include sm {
+    @include mixins.sm {
       font-size: 2rem;
     }
   }
 
   p {
-    color: $dark-text;
+    color: vars.$dark-text;
     font-size: 1.2rem;
     max-width: 800px;
     margin: 0 auto;
 
-    @include sm {
+    @include mixins.sm {
       font-size: 1rem;
     }
   }
@@ -43,27 +43,27 @@
   text-align: center;
   
   h2 {
-    color: $primary-color;
-    margin-bottom: $spacing-lg;
+    color: vars.$primary-color;
+    margin-bottom: vars.$spacing-lg;
   }
 
   .valueGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: $spacing-md;
+    gap: vars.$spacing-md;
 
-    @include sm {
+    @include mixins.sm {
       grid-template-columns: 1fr;
     }
   }
 
   .valueItem {
-    @include card;
-    padding: $spacing-md;
+    @include mixins.card;
+    padding: vars.$spacing-md;
 
     h3 {
-      color: $primary-color;
-      margin-bottom: $spacing-sm;
+      color: vars.$primary-color;
+      margin-bottom: vars.$spacing-sm;
     }
   }
 }

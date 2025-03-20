@@ -1,28 +1,28 @@
 // src/pages/AutonomousAgentGenomePage/AutonomousAgentGenomePage.module.scss
-@use '../../styles/variables.scss';
-@use '../../styles/mixins.scss';
+@use "@/styles/variables.scss" as vars;
+@use "@/styles/mixins.scss" as mixins;
 
 .autonomousAgentGenomeContainer {
-  max-width: $breakpoint-lg;
+  max-width: vars.$breakpoint-lg;
   margin: 0 auto;
-  padding: $spacing-lg;
-  background-color: $background-color;
+  padding: vars.$spacing-lg;
+  background-color: vars.$background-color;
 
-  @include md {
-    padding: $spacing-md;
+  @include mixins.md {
+    padding: vars.$spacing-md;
   }
 }
 
 .heroSection {
   text-align: center;
-  margin-bottom: $spacing-xl;
+  margin-bottom: vars.$spacing-xl;
 
   h1 {
-    color: $primary-color;
+    color: vars.$primary-color;
     font-size: 2.5rem;
-    margin-bottom: $spacing-md;
+    margin-bottom: vars.$spacing-md;
 
-    @include sm {
+    @include mixins.sm {
       font-size: 2rem;
     }
   }
@@ -33,9 +33,9 @@
 .interpretabilityGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: $spacing-lg;
+  gap: vars.$spacing-lg;
 
-  @include sm {
+  @include mixins.sm {
     grid-template-columns: 1fr;
   }
 }
@@ -43,20 +43,20 @@
 .capabilityCard,
 .algorithmCategory,
 .interpretabilityCard {
-  @include card;
-  padding: $spacing-lg;
+  @include mixins.card;
+  padding: vars.$spacing-lg;
   text-align: center;
 
   h3 {
-    color: $primary-color;
-    margin-bottom: $spacing-md;
+    color: vars.$primary-color;
+    margin-bottom: vars.$spacing-md;
   }
 }
 
 .capabilityIcons {
   display: flex;
   justify-content: center;
-  gap: $spacing-sm;
-  margin-bottom: $spacing-md;
-  color: $primary-color;
+  gap: vars.$spacing-sm;
+  margin-bottom: vars.$spacing-md;
+  color: vars.$primary-color;
 }
