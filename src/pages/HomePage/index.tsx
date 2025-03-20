@@ -1,14 +1,35 @@
-// /Users/dbass/Documents/GitHub/ADF-Website/src/pages/HomePage/index.tsx
+// src/pages/HomePage/index.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import InteractiveNodeNavigation from '@components/InteractiveNodeNavigation';
-import { navigationNodeData } from '@models/NodeTypes';
-import NodeHomepage from '@components/NodeHomepage';
-import { initialNodeData } from '@components/NodeHomepage/NodeTypes';
-import ResearchTimeline from '@components/ResearchTimeline';
 import styles from './HomePage.module.scss';
+import InteractiveNodeNavigation from "@components/InteractiveNodeNavigation";
+import ResearchTimeline from "@components/ResearchTimeline";
 
-const HomePage: React.FC = () => {
+export interface NavigationNode {
+  id: string;
+  name: string;
+  route: string;
+  icon?: string;
+  children?: NavigationNode[];
+}
+
+interface HomePageProps {
+  data: NavigationNode[];
+}
+
+const navigationNodeData: NavigationNode[] = [
+  { id: '1', name: 'Home', route: '/' },
+  { id: '2', name: 'Services', route: '/services' },
+  { id: '3', name: 'Contact', route: '/contact' },
+  { id: '4', name: 'Research', route: '/research' },
+  { id: '5', name: 'Case Studies', route: '/case-studies' },
+  { id: '6', name: 'About Us', route: '/about' },
+  { id: '7', name: 'Spark Engine', route: '/spark-engine' },
+  { id: '8', name: 'Autonomous Agent Genome', route: '/autonomous-agent-genome' },
+  { id: '9', name: 'NeuroTech Network', route: '/neurotech' }
+];
+
+const HomePage: React.FC<HomePageProps> = ({ data }) => {
   return (
     <motion.div 
       className={styles.homeContainer}
@@ -16,70 +37,73 @@ const HomePage: React.FC = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <InteractiveNodeNavigation data={navigationNodeData} />
-      
-      <div className={styles.heroSection}>
-        <h1>Adaptive Data Fusion</h1>
-        <h2>Bridging AI Innovation and Human Potential</h2>
-        <p>
-          Transforming organizational capabilities through ethical, human-centered 
-          artificial intelligence solutions
-        </p>
-      </div>
-      
-      <section className={styles.platformOverview}>
-        <h3>Introducing Neurotech: The Future of Cognitive Computing</h3>
-        <div className={styles.platformFeatures}>
-          <div className={styles.feature}>
-            <h4>Neural Network Innovation</h4>
-            <p>
-              Leveraging advanced neural network architectures to unlock 
-              unprecedented AI capabilities across industries.
-            </p>
-          </div>
-          <div className={styles.feature}>
-            <h4>Ethical AI Integration</h4>
-            <p>
-              Ensuring transparent, fair, and accountable AI systems that 
-              enhance human potential rather than replace it.
-            </p>
-          </div>
-          <div className={styles.feature}>
-            <h4>Adaptive Learning</h4>
-            <p>
-              Continuous evolution of AI models through neuroevolution 
-              and genetic algorithms for optimal performance.
-            </p>
-          </div>
-        </div>
-      </section>
+      <InteractiveNodeNavigation data={data} />
+      <div className={styles.contentContainer}>
+        <section className={styles.heroSection}>
+          <h1>Welcome to Adaptive Data Fusion</h1>
+          <p>
+            Discover the power of our hybrid modular learning system for data analysis and insights generation.
+          </p>
+        </section>
 
-      <NodeHomepage data={initialNodeData} />
-      
-      <section className={styles.researchSection}>
-        <h2>Our Research Journey</h2>
-        <ResearchTimeline />
-      </section>
-      
-      <section className={styles.valueProposition}>
-        <h2>Transforming Data into Actionable Intelligence</h2>
-        <div className={styles.valueGrid}>
-          <div className={styles.valueItem}>
-            <h3>AI-Driven Insights</h3>
-            <p>Leverage cutting-edge AI to uncover hidden patterns and opportunities.</p>
+        <section className={styles.coreModulesSection}>
+          <h2>Core Modules of Adaptive Data Fusion</h2>
+          <div className={styles.moduleGrid}>
+            <div className={styles.moduleCard}>
+              <h3>Spark Engine</h3>
+              <p>Powerful data processing engine for real-time analytics.</p>
+              <a href="/spark-engine" className={styles.moduleLink}>Learn More</a>
+            </div>
+            <div className={styles.moduleCard}>
+              <h3>Autonomous Agent Genome</h3>
+              <p>Advanced AI algorithms for adaptive learning and decision-making.</p>
+              <a href="/autonomous-agent-genome" className={styles.moduleLink}>Learn More</a>
+            </div>
+            <div className={styles.moduleCard}>
+              <h3>NeuroTech Network</h3>
+              <p>Neural network architecture for complex data analysis.</p>
+              <a href="/neurotech" className={styles.moduleLink}>Learn More</a>
+            </div>
           </div>
-          <div className={styles.valueItem}>
-            <h3>Ethical Implementation</h3>
-            <p>Ensure responsible and transparent AI solutions that align with your values.</p>
+        </section>
+
+        <section className={styles.researchSection}>
+          <h2>Research Journey</h2>
+          <ResearchTimeline />
+        </section>
+
+        <section className={styles.additionalSections}>
+          <h2>Explore More</h2>
+          <div className={styles.sectionGrid}>
+            <div className={styles.sectionCard}>
+              <h3>About Us</h3>
+              <p>Learn more about our mission and team.</p>
+              <a href="/about" className={styles.sectionLink}>Visit Page</a>
+            </div>
+            <div className={styles.sectionCard}>
+              <h3>Case Studies</h3>
+              <p>Explore real-world applications of our technology.</p>
+              <a href="/case-studies" className={styles.sectionLink}>Visit Page</a>
+            </div>
+            <div className={styles.sectionCard}>
+              <h3>Services</h3>
+              <p>Discover our range of AI and data fusion services.</p>
+              <a href="/services" className={styles.sectionLink}>Visit Page</a>
+            </div>
+            <div className={styles.sectionCard}>
+              <h3>Contact</h3>
+              <p>Get in touch with us for inquiries and collaborations.</p>
+              <a href="/contact" className={styles.sectionLink}>Visit Page</a>
+            </div>
           </div>
-          <div className={styles.valueItem}>
-            <h3>Strategic Transformation</h3>
-            <p>Reimagine your business processes with intelligent data fusion.</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </motion.div>
   );
+};
+
+const App: React.FC = () => {
+  return <HomePage data={navigationNodeData} />;
 };
 
 export default HomePage;

@@ -38,7 +38,8 @@ h1, h2, h3, h4, h5, h6 {
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: darken(vars.$primary-color, 10%);
+      // Use color.scale() instead of darken()
+      background-color: color.scale(vars.$primary-color, $lightness: -30.3571428571%);
     }
   }
 }

@@ -9,6 +9,10 @@ interface ServiceItem {
   icon: string;
 }
 
+interface ServicesPageProps {
+  data: ServiceItem[];
+}
+
 const services: ServiceItem[] = [
   {
     title: 'AI Consulting',
@@ -32,7 +36,7 @@ const services: ServiceItem[] = [
   }
 ];
 
-const ServicesPage: React.FC = () => {
+const ServicesPage: React.FC<ServicesPageProps> = ({ data }) => {
   return (
     <motion.div 
       className={styles.servicesContainer}
@@ -41,19 +45,19 @@ const ServicesPage: React.FC = () => {
       transition={{ duration: 0.5 }}
     >
       <h1>Our Services</h1>
-      <div className={styles.serviceGrid}>
-        {services.map((service) => (
-          <div key={service.title} className={styles.serviceCard}>
-            <div className={styles.serviceIcon}>
-              <i className={`fas fa-${service.icon}`}></i>
-            </div>
-            <h3>{service.title}</h3>
-            <p>{service.description}</p>
-          </div>
-        ))}
-      </div>
+      {data.map((service) => (
+        <div key={service.title} className={styles.serviceItem}>
+          <h2>{service.title}</h2>
+          <p>{service.description}</p>
+        </div>
+      ))}
     </motion.div>
   );
+};
+
+// Example usage of ServicesPage component
+const App: React.FC = () => {
+  return <ServicesPage data={services} />;
 };
 
 export default ServicesPage;
