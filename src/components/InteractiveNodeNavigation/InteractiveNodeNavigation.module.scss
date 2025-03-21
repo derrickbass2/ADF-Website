@@ -1,59 +1,63 @@
-@use '../../styles/variables.scss';
-@use '../../styles/mixins.scss';// src/components/InteractiveNodeNavigation/InteractiveNodeNavigation.module.scss
+@use "@/styles/variables.scss" as vars;
+@use "@/styles/mixins.scss" as mixins;
+
 .navigationContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-color: vars.$background-color;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: vars.$spacing-md;
+  margin-bottom: vars.$spacing-md;
+  padding: vars.$spacing-sm;
+  background-color: vars.$white;
+  box-shadow: vars.$shadow-subtle;
+
+  select, input {
+    padding: vars.$spacing-sm;
+    border-radius: vars.$border-radius-sm;
+    border: 1px solid vars.$light-text;
+    font-family: vars.$font-primary;
   }
-  
-  .link {
-    fill: none;
-    stroke: #4F94DB;
-    stroke-opacity: 0.4;
-    stroke-width: 1.5px;
-    transition: all 0.3s ease;
+}
+
+.nodeDetails {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: vars.$white;
+  border-radius: vars.$border-radius-md;
+  padding: vars.$spacing-md;
+  text-align: center;
+  box-shadow: vars.$shadow-medium;
+  max-width: 300px;
+
+  h3 {
+    color: vars.$primary-color;
+    margin-bottom: vars.$spacing-sm;
   }
-  
-  .node {
+
+  p {
+    color: vars.$dark-text;
+    margin-bottom: vars.$spacing-md;
+  }
+
+  button {
+    background-color: vars.$primary-color;
+    color: vars.$white;
+    border: none;
+    padding: vars.$spacing-sm vars.$spacing-md;
+    border-radius: vars.$border-radius-sm;
     cursor: pointer;
-    transition: all 0.3s ease;
-  
+    transition: background-color 0.3s ease;
+
     &:hover {
-      .nodeCircle {
-        fill: #1E3A8A;
-        stroke: #1E3A8A;
-      }
-  
-      .nodeLabel {
-        font-weight: bold;
-      }
+      background-color: darken(vars.$primary-color, 10%);
     }
   }
-  
-  .nodeCircle {
-    fill: #f4f6f8;
-    stroke: #4F94DB;
-    stroke-width: 2px;
-    transition: all 0.3s ease;
-  }
-  
-  .selectedNodeCircle {
-    @extend .nodeCircle;
-    fill: #1E3A8A;
-    stroke: #1E3A8A;
-  }
-  
-  .nodeLabel {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
-    fill: #212121;
-    transition: all 0.3s ease;
-  }
-  
-  .nodeIcon {
-    font-size: 12px;
-    fill: #4F94DB;
-  }
+}
