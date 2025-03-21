@@ -10,6 +10,11 @@ declare module '*.module.scss' {
   }
   
   declare module '@models/*' {
-    const model: any; // You can replace 'any' with a more specific type if needed
+    interface Model {
+      // Define the properties of the model here
+      id: string;
+      name: string;
+    }
+    const model: Model; // You can replace 'Model' with a more specific type if needed
     export default model;
   }

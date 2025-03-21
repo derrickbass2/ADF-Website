@@ -1,5 +1,5 @@
 // src/styles/mixins.scss
-@use './variables.scss' as *;
+@use 'variables' as *;
 
 // Responsive Mixins
 @mixin xs {
@@ -57,7 +57,7 @@
   @include transition-smooth;
 
   &:hover {
-    box-shadow: $shadow-medium;
-    transform: translateY(-5px);
+      box-shadow: $shadow-medium;
+      transform: translateY(-5px);
+    }
   }
-}

@@ -1,19 +1,10 @@
 import React, { Suspense, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import InteractiveNodeNavigation from '@components/InteractiveNodeNavigation';
-import navigationNodeData from '@models/NodeTypes';
-
-// Define the NodeData interface based on the structure of navigationNodeData
-interface NodeData {
-  id?: string;
-  name?: string;
-  description?: string;
-  icon?: string;
-  route?: string;
-  children?: NodeData[];
-}
-import ErrorBoundary from '@components/ErrorBoundary';
-import LoadingSpinner from '@components/LoadingSpinner';
+import InteractiveNodeNavigation from './components/InteractiveNodeNavigation';
+import { navigationNodeData, NodeData } from './models/NodeTypes';
+import LoadingSpinner from './components/LoadingSpinner';
+import ErrorBoundary from './components/ErrorBoundary/index.tsx';
+import ContactPage from './pages/ContactPage';
 
 // Define common page props interface
 interface PageProps {
@@ -21,16 +12,20 @@ interface PageProps {
   selectedNode?: NodeData | null;
 }
 
+// Define props for HomePage
+interface HomePageProps {
+  data?: NodeData[];
+}
+
 // Lazy load pages
-const HomePage = React.lazy(() => import('@pages/HomePage')) as React.ComponentType<PageProps>;
-const ServicesPage = React.lazy(() => import('@pages/ServicesPage')) as React.ComponentType<PageProps>;
-const CaseStudiesPage = React.lazy(() => import('@pages/CaseStudiesPage'));
-const ContactPage = React.lazy(() => import('@pages/ContactPage'));
-const SparkEnginePage = React.lazy(() => import('@pages/SparkEnginePage'));
-const NeuroTechNetworkPage = React.lazy(() => import('@pages/NeuroTechNetworkPage'));
-const AutonomousAgentGenomePage = React.lazy(() => import('@pages/AutonomousAgentGenomePage'));
-const ResearchPage = React.lazy(() => import('@pages/ResearchPage'));
-const AboutUsPage = React.lazy(() => import('@pages/AboutUsPage'));
+const HomePage = React.lazy(() => import('./pages/HomePage'));
+const ServicesPage = React.lazy(() => import('./pages/ServicesPage'));
+const CaseStudiesPage = React.lazy(() => import('./pages/CaseStudiesPage'));
+const SparkEnginePage = React.lazy(() => import('./pages/SparkEnginePage'));
+const NeuroTechNetworkPage = React.lazy(() => import('./pages/NeuroTechNetworkPage'));
+const AutonomousAgentGenomePage = React.lazy(() => import('./pages/AutonomousAgentGenomePage'));
+const ResearchPage = React.lazy(() => import('./pages/ResearchPage'));
+const AboutUsPage = React.lazy(() => import('./pages/AboutUsPage'));
 
 // Define a type for route data transformation
 interface RouteData {
@@ -43,6 +38,10 @@ interface RouteData {
   name?: string;
   route?: string;
   children?: RouteData[];
+}
+
+interface ServicesPageProps {
+  data?: NodeData[];
 }
 
 const App: React.FC = () => {
@@ -69,48 +68,45 @@ const App: React.FC = () => {
   return (
     <div className="app-container" role="application">
       <ErrorBoundary fallback={<div>Something went wrong</div>}>
-        <InteractiveNodeNavigation 
-          data={navigationNodeData} 
-          onNodeSelect={handleNodeSelect} 
+        <InteractiveNodeNavigation
+          data={navigationNodeData}
+          onNodeSelect={handleNodeSelect}
         />
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
-            <Route 
-              path="/" 
+            <Route
+              path="/"
               element={
-                <HomePage 
-                  data={navigationNodeData[0].children?.map(transformRouteData) || []} 
-                  selectedNode={selectedNode}
+                <HomePage
+                  data={navigationNodeData[0].children}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/services" 
+            <Route
+              path="/services"
               element={
-                <ServicesPage 
-                  data={navigationNodeData[0].children?.find((node: NodeData) => node.id === 'services')?.children?.map(transformRouteData) || []}
-                  selectedNode={selectedNode}
+                <ServicesPage
+                  data={navigationNodeData[0].children?.find((node: NodeData) => node.id === 'services')?.children as any}
                 />
-              } 
+              }
             />
-            <Route path="/case-studies" element={<CaseStudiesPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/spark-engine" element={<SparkEnginePage />} />
             <Route path="/neurotech" element={<NeuroTechNetworkPage />} />
             <Route path="/autonomous-agent-genome" element={<AutonomousAgentGenomePage />} />
             <Route path="/research/projects" element={<ResearchPage />} />
             <Route path="/about" element={<AboutUsPage />} />
-            
+
             {/* 404 Route */}
-            <Route 
-              path="*" 
+            <Route
+              path="*"
               element={
                 <div role="alert" aria-label="Page Not Found">
                   <h1>404 - Page Not Found</h1>
                   <p>The page you are looking for does not exist.</p>
                   <p>Selected Node: {selectedNode?.name || 'None'}</p>
                 </div>
-              } 
+              }
             />
           </Routes>
         </Suspense>

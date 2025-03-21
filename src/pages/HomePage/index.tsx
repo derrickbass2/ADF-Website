@@ -14,22 +14,25 @@ export interface NavigationNode {
 }
 
 interface HomePageProps {
-  data: NavigationNode[];
 }
 
 const navigationNodeData: NavigationNode[] = [
-  { id: '1', name: 'Home', route: '/' },
-  { id: '2', name: 'Services', route: '/services' },
-  { id: '3', name: 'Contact', route: '/contact' },
-  { id: '4', name: 'Research', route: '/research' },
-  { id: '5', name: 'Case Studies', route: '/case-studies' },
-  { id: '6', name: 'About Us', route: '/about' },
-  { id: '7', name: 'Spark Engine', route: '/spark-engine' },
-  { id: '8', name: 'Autonomous Agent Genome', route: '/autonomous-agent-genome' },
-  { id: '9', name: 'NeuroTech Network', route: '/neurotech' }
+    { id: '1', name: 'Home', route: '/' },
+    { id: '2', name: 'Services', route: '/services' },
+    { id: '3', name: 'Contact', route: '/contact' },
+    { id: '4', name: 'Research', route: '/research' },
+    { id: '5', name: 'Case Studies', route: '/case-studies' },
+    { id: '6', name: 'About Us', route: '/about' },
+    { id: '7', name: 'Spark Engine', route: '/spark-engine' },
+    { id: '8', name: 'Autonomous Agent Genome', route: '/autonomous-agent-genome' },
+    { id: '9', name: 'NeuroTech Network', route: '/neurotech' }
 ];
 
-const HomePage: React.FC<HomePageProps> = ({ data }) => {
+export interface InteractiveNodeNavigationProps {
+    data: NavigationNode[];
+}
+
+const HomePage: React.FC<HomePageProps> = () => {
   return (
     <motion.div 
       className={styles.homeContainer}
@@ -37,10 +40,9 @@ const HomePage: React.FC<HomePageProps> = ({ data }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <InteractiveNodeNavigation data={data} />
+      <InteractiveNodeNavigation data={navigationNodeData} />
       <div className={styles.contentContainer}>
         <section className={styles.heroSection}>
-          <h1>Welcome to Adaptive Data Fusion</h1>
           <p>
             Discover the power of our hybrid modular learning system for data analysis and insights generation.
           </p>
@@ -100,10 +102,6 @@ const HomePage: React.FC<HomePageProps> = ({ data }) => {
       </div>
     </motion.div>
   );
-};
-
-const App: React.FC = () => {
-  return <HomePage data={navigationNodeData} />;
 };
 
 export default HomePage;

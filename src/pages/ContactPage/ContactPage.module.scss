@@ -1,7 +1,6 @@
 // src/pages/ContactPage/ContactPage.module.scss
-@use '../../styles/variables.scss';
-@use '../../styles/mixins.scss';
-
+@use "@/styles/variables.scss" as vars;
+@use "@/styles/mixins.scss" as mixins;
 .contactContainer {
   max-width: $breakpoint-md;
   margin: 0 auto;
@@ -39,7 +38,7 @@
     @include transition-smooth;
 
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: darken(vars.$primary-color, 10%);
     }
   }
 }

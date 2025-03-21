@@ -1,7 +1,6 @@
 // src/pages/NeuroTechNetworkPage/NeuroTechNetworkPage.module.scss
-@use '../../styles/variables.scss';
-@use '../../styles/mixins.scss';
-
+@use "@/styles/variables.scss" as vars;
+@use "@/styles/mixins.scss" as mixins;
 .neurotechNetworkContainer {
   max-width: $breakpoint-lg;
   margin: 0 auto;
