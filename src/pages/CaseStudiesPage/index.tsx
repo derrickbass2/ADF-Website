@@ -1,7 +1,7 @@
 // src/pages/CaseStudiesPage/index.tsx
-import React from 'react';
-import { motion } from 'framer-motion';
-import styles from './CaseStudiesPage.module.scss';
+import React from "react";
+import { motion } from "framer-motion";
+import styles from "./CaseStudiesPage.module.scss";
 
 interface CaseStudy {
   client: string;
@@ -13,32 +13,33 @@ interface CaseStudy {
 
 const caseStudies: CaseStudy[] = [
   {
-    client: 'Sweetgreen',
-    industry: 'Food Service',
-    challenge: 'Optimize supply chain and customer demand prediction',
-    solution: 'Implemented machine learning models for inventory and demand forecasting',
+    client: "Sweetgreen",
+    industry: "Food Service",
+    challenge: "Optimize supply chain and customer demand prediction",
+    solution:
+      "Implemented machine learning models for inventory and demand forecasting",
     impact: [
-      '25% reduction in food waste',
-      '18% improvement in supply chain efficiency',
-      'Enhanced customer satisfaction through more accurate inventory management'
-    ]
+      "25% reduction in food waste",
+      "18% improvement in supply chain efficiency",
+      "Enhanced customer satisfaction through more accurate inventory management",
+    ],
   },
   {
-    client: 'Compass Group',
-    industry: 'Hospitality',
-    challenge: 'Improve operational efficiency across multiple facilities',
-    solution: 'Developed AI-driven operational analytics platform',
+    client: "Compass Group",
+    industry: "Hospitality",
+    challenge: "Improve operational efficiency across multiple facilities",
+    solution: "Developed AI-driven operational analytics platform",
     impact: [
-      '30% reduction in operational costs',
-      'Real-time performance monitoring',
-      'Predictive maintenance scheduling'
-    ]
-  }
+      "30% reduction in operational costs",
+      "Real-time performance monitoring",
+      "Predictive maintenance scheduling",
+    ],
+  },
 ];
 
 const CaseStudiesPage: React.FC = () => {
   return (
-    <motion.div 
+    <motion.div
       className={styles.caseStudiesContainer}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

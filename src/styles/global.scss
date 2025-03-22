@@ -23,7 +23,12 @@ body {
 }
 
 // Typography
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: vars.$font-secondary;
   color: vars.$primary-color;
 }
@@ -40,7 +45,10 @@ h1, h2, h3, h4, h5, h6 {
 
     &:hover {
       // Use color.scale() instead of darken()
-      background-color: color.scale(vars.$primary-color, $lightness: -30.3571428571%);
+      background-color: color.scale(
+        vars.$primary-color,
+        $lightness: -30.3571428571%
+      );
     }
   }
 }

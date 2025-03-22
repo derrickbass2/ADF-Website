@@ -16,12 +16,13 @@
   display: grid;
   gap: $spacing-md;
 
-  input, textarea {
+  input,
+  textarea {
     width: 100%;
     padding: $spacing-sm;
     border: 1px solid $light-text;
     border-radius: $border-radius-sm;
-    
+
     &:focus {
       outline: none;
       border-color: $primary-color;

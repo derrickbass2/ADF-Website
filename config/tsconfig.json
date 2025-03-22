@@ -31,7 +31,8 @@
   },
   "include": [
     "src",
-    "global.d.ts"
+    "global.d.ts",
+    "vite-env.d.ts"
   ],
   "exclude": [
     "node_modules",

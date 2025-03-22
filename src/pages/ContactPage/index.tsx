@@ -1,24 +1,24 @@
 // src/pages/ContactPage/index.tsx
-import React, { useState, FormEvent } from 'react';
-import { motion } from 'framer-motion';
-import styles from './ContactPage.module.scss';
+import React, { useState, FormEvent } from "react";
+import { motion } from "framer-motion";
+import styles from "./ContactPage.module.scss";
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
+    name: "",
+    email: "",
+    company: "",
+    message: "",
   });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Implement form submission logic
-    console.log('Form submitted', formData);
+    console.log("Form submitted", formData);
   };
 
   return (
-    <motion.div 
+    <motion.div
       className={styles.contactContainer}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -31,26 +31,32 @@ const ContactPage: React.FC = () => {
             type="text"
             placeholder="Full Name"
             value={formData.name}
-            onChange={(e) => setFormData({...formData, name: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
           />
           <input
             type="email"
             placeholder="Email Address"
             value={formData.email}
-            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
             required
           />
           <input
             type="text"
             placeholder="Company"
             value={formData.company}
-            onChange={(e) => setFormData({...formData, company: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, company: e.target.value })
+            }
           />
           <textarea
             placeholder="Your Message"
             value={formData.message}
-            onChange={(e) => setFormData({...formData, message: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, message: e.target.value })
+            }
             required
           />
           <button type="submit">Send Message</button>

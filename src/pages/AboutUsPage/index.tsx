@@ -1,7 +1,7 @@
 // src/pages/AboutUsPage/index.tsx
-import React from 'react';
-import { motion } from 'framer-motion';
-import styles from './AboutUsPage.module.scss';
+import React from "react";
+import { motion } from "framer-motion";
+import styles from "./AboutUsPage.module.scss";
 
 interface TeamMember {
   id: string;
@@ -13,18 +13,18 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    id: 'derrick-bass',
-    name: 'Derrick Bass',
-    role: 'Founder & Chief AI Strategist',
-    bio: 'Pioneering expert in AI-driven organizational transformation with a track record of innovative solutions.',
-    image: '/path/to/derrick-bass-image.jpg'
+    id: "derrick-bass",
+    name: "Derrick Bass",
+    role: "Founder & Chief AI Strategist",
+    bio: "Pioneering expert in AI-driven organizational transformation with a track record of innovative solutions.",
+    image: "/path/to/derrick-bass-image.jpg",
   },
   // Add more team members as needed
 ];
 
 const AboutUsPage: React.FC = () => {
   return (
-    <motion.div 
+    <motion.div
       className={styles.aboutContainer}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -33,9 +33,10 @@ const AboutUsPage: React.FC = () => {
       <section className={styles.missionStatement}>
         <h1>About Adaptive Data Fusion</h1>
         <p>
-          We are a cutting-edge AI consultancy dedicated to bridging the gap between 
-          technological innovation and human potential. Our mission is to empower 
-          organizations to leverage artificial intelligence ethically and strategically.
+          We are a cutting-edge AI consultancy dedicated to bridging the gap
+          between technological innovation and human potential. Our mission is
+          to empower organizations to leverage artificial intelligence ethically
+          and strategically.
         </p>
       </section>
 
@@ -43,9 +44,9 @@ const AboutUsPage: React.FC = () => {
         <div className={styles.teamGrid}>
           {teamMembers.map((member) => (
             <div key={member.id} className={styles.teamMemberCard}>
-              <img 
-                src={member.image} 
-                alt={member.name} 
+              <img
+                src={member.image}
+                alt={member.name}
                 className={styles.memberImage}
               />
               <h3>{member.name}</h3>

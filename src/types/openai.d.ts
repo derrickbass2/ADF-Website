@@ -27,8 +27,6 @@ declare module 'openai' {
 export type CustomChatCompletion = CompletionCreateParams & {
   processedContent?: string;
 };
-};
-
 export type CustomImagesResponse = ImagesResponse & {
   processedUrls?: string[];
 };

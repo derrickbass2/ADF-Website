@@ -1,7 +1,7 @@
 // src/services/apiService.ts
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.adaptivedatafusion.com';
+const BASE_URL = (import.meta as any).env.VITE_API_BASE_URL || 'https://api.adaptivedatafusion.com';
 
 export const apiService = {
   async get(endpoint: string, params?: any) {
@@ -25,28 +25,3 @@ export const apiService = {
   }
 };
 
-// src/services/researchService.ts
-import { apiService } from './apiService';
-
-export const researchService = {
-  async getResearchProjects() {
-    return apiService.get('/research/projects');
-  },
-
-  async getPublicationDetails(publicationId: string) {
-    return apiService.get(`/research/publications/${publicationId}`);
-  }
-};
-
-// src/services/authService.ts
-import { apiService } from './apiService';
-
-export const authService = {
-  async login(email: string, password: string) {
-    return apiService.post('/auth/login', { email, password });
-  },
-
-  async logout() {
-    return apiService.post('/auth/logout', {});
-  }
-};

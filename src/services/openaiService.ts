@@ -77,5 +77,17 @@ class OpenAIService {
     throw new Error('Max retries exceeded');
   }
 }
+// openaiService.ts
+const apiKey = import.meta.env.VITE_API_KEY;
+const apiUrl = import.meta.env.VITE_API_URL;
 
+export const fetchData = async () => {
+  const response = await fetch(`${apiUrl}/data`, {
+    headers: {
+      'Authorization': `Bearer ${apiKey}`
+    }
+  });
+  const data = await response.json();
+  return data;
+};
 export const openaiService = new OpenAIService();
