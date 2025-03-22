@@ -30,8 +30,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
-"lint": "eslint 'src/**/*.{ts,tsx}'",
-"format": "prettier --write 'src/**/*.{ts,tsx,scss}'",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "format": "prettier --write 'src/**/*.{ts,tsx,scss}'",
     "clean": "rimraf dist"
   },
   "dependencies": {
@@ -42,6 +42,11 @@
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
     "@reduxjs/toolkit": "^2.6.1",
+    "@sentry/react": "^9.8.0",
+    "@sentry/replay": "^7.116.0",
+    "@sentry/tracing": "^7.120.3",
+    "@sentry/types": "^9.8.0",
+    "@sentry/vite-plugin": "^3.2.2",
     "axios": "^1.8.3",
     "bootstrap": "^5.3.3",
     "d3": "^7.9.0",
