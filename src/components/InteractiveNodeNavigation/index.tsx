@@ -32,15 +32,15 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
 
   // Advanced Radial Placement with More Sophisticated Positioning
   const createRadialPlacement = useCallback((nodes: SimulationNodeData[]) => {
-    const width = svgRef.current?.clientWidth || window.innerWidth;
-    const height = svgRef.current?.clientHeight || window.innerHeight;
+    const width = svgRef.current?.clientWidth ?? window.innerWidth;
+    const height = svgRef.current?.clientHeight ?? window.innerHeight;
     const center = { x: width / 2, y: height / 2 };
     const radius = Math.min(width, height) / 3;
 
     // Group nodes by category or artist
     const groupedNodes = new Map<string, SimulationNodeData[]>();
     nodes.forEach(node => {
-      const key = node.category || node.artist || 'uncategorized';
+      const key = node.category ?? node.artist ?? 'uncategorized';
       if (!groupedNodes.has(key)) {
         groupedNodes.set(key, []);
       }
@@ -50,7 +50,7 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
 
     return nodes.map((node, _index) => {
       const categoryIndex = categories.findIndex(cat => 
-        cat === (node.category || node.artist || 'uncategorized')
+        cat === (node.category ?? node.artist ?? 'uncategorized')
       );
       
       const angle = (categoryIndex / categories.length) * Math.PI * 2;
@@ -118,8 +118,8 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
 
     // Add circles to nodes
     node.append('circle')
-      .attr('r', (d: SimulationNodeData) => Math.sqrt(d.playcount || 50) + 10)
-      .attr('fill', (d: SimulationNodeData) => colorScale(d.category || 'support'))
+      .attr('r', (d: SimulationNodeData) => Math.sqrt(d.playcount ?? 50) + 10)
+      .attr('fill', (d: SimulationNodeData) => colorScale(d.category ?? 'support'))
       .attr('stroke', 'white')
       .attr('stroke-width', 2);
 
@@ -133,7 +133,7 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
 
     // Simulation tick function
     simulation.on('tick', () => {
-      node.attr('transform', (d: SimulationNodeData) => `translate(${d.x || 0},${d.y || 0})`);
+      node.attr('transform', (d: SimulationNodeData) => `translate(${d.x ?? 0},${d.y ?? 0})`);
     });
 
     // Apply radial layout if selected

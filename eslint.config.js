@@ -12,7 +12,6 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    root: true,
     ignores: ['dist', 'node_modules'], // Replaces .eslintignore
     languageOptions: {
       ecmaVersion: 'latest',
