@@ -1,9 +1,8 @@
-// src/components/InteractiveNodeNavigation/index.tsx
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import * as d3 from 'd3';
 import { useNavigate } from 'react-router-dom';
-import styles from './InteractiveNodeNavigation.module.scss';
 import { NodeData, NodeCategory } from '../../models/NodeTypes';
+import styles from './InteractiveNodeNavigation.module.scss';
 
 // Extended type to make NodeData compatible with D3's SimulationNodeDatum
 type SimulationNodeData = NodeData & d3.SimulationNodeDatum & {
@@ -14,33 +13,44 @@ type SimulationNodeData = NodeData & d3.SimulationNodeDatum & {
 interface InteractiveNodeNavigationProps {
   data: NodeData[];
   onNodeSelect?: (node: NodeData) => void;
+  forceStrength?: number;
+  svgHeight?: number;
 }
 
 const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({ 
   data, 
-  onNodeSelect 
-}) => {
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  onNodeSelect, 
+  forceStrength = -150, 
+  svgHeight = 500 
+}: InteractiveNodeNavigationProps) => {
   const navigate = useNavigate();
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const [selectedNode, setSelectedNode] = useState<NodeData | null>(null);
   const [layout, setLayout] = useState<'force' | 'radial'>('force');
   const [filter, setFilter] = useState<'all' | NodeCategory>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   // Advanced Radial Placement with More Sophisticated Positioning
-  const createRadialPlacement = (nodes: SimulationNodeData[]) => {
+  const createRadialPlacement = useCallback((nodes: SimulationNodeData[]) => {
     const width = svgRef.current?.clientWidth || window.innerWidth;
     const height = svgRef.current?.clientHeight || window.innerHeight;
     const center = { x: width / 2, y: height / 2 };
     const radius = Math.min(width, height) / 3;
 
     // Group nodes by category or artist
-    const groupedNodes = d3.group(nodes, d => d.category || d.artist);
+    const groupedNodes = new Map<string, SimulationNodeData[]>();
+    nodes.forEach(node => {
+      const key = node.category || node.artist || 'uncategorized';
+      if (!groupedNodes.has(key)) {
+        groupedNodes.set(key, []);
+      }
+      groupedNodes.get(key)?.push(node);
+    });
     const categories = Array.from(groupedNodes.keys());
 
-    return nodes.map((node, index) => {
+    return nodes.map((node, _index) => {
       const categoryIndex = categories.findIndex(cat => 
-        cat === (node.category || node.artist)
+        cat === (node.category || node.artist || 'uncategorized')
       );
       
       const angle = (categoryIndex / categories.length) * Math.PI * 2;
@@ -52,21 +62,15 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
         fy: layout === 'radial' ? center.y + radius * Math.sin(angle) : null
       };
     });
-  };
+  }, [layout]);
 
   // Memoized filter function for performance
   const filteredNodes = useMemo(() => {
-    return data[0]?.children?.filter(node => {
-      const matchesCategory = 
-        filter === 'all' || 
-        node.category === filter;
-      
-      const matchesSearch = 
-        !searchTerm || 
-        node.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        node.tags?.some(tag => 
-          tag.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+    return data[0]?.children?.filter((node: NodeData) => {
+      const matchesCategory = filter === 'all' || node.category === filter;
+      const matchesSearch = !searchTerm || node.tags?.some((tag: string) => 
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
       return matchesCategory && matchesSearch;
     }) || [];
@@ -89,7 +93,7 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
 
     // Create force simulation
     const simulation = d3.forceSimulation(filteredNodes as SimulationNodeData[])
-      .force('charge', d3.forceManyBody().strength(-150))
+      .force('charge', d3.forceManyBody().strength(forceStrength))
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force('collision', d3.forceCollide(30));
 
@@ -106,7 +110,7 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
         .on('drag', dragged)
         .on('end', dragended)
       )
-      .on('click', (event, d) => {
+      .on('click', (_event: any, d: SimulationNodeData) => {
         setSelectedNode(d);
         onNodeSelect?.(d);
         navigate(d.route);
@@ -114,8 +118,8 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
 
     // Add circles to nodes
     node.append('circle')
-      .attr('r', d => Math.sqrt(d.playcount || 50) + 10)
-      .attr('fill', d => colorScale(d.category || 'support'))
+      .attr('r', (d: SimulationNodeData) => Math.sqrt(d.playcount || 50) + 10)
+      .attr('fill', (d: SimulationNodeData) => colorScale(d.category || 'support'))
       .attr('stroke', 'white')
       .attr('stroke-width', 2);
 
@@ -123,7 +127,7 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
     node.append('text')
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
-      .text(d => d.name)
+      .text((d: SimulationNodeData) => d.name)
       .attr('font-size', '10px')
       .attr('fill', 'black');
 
@@ -131,24 +135,6 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
     simulation.on('tick', () => {
       node.attr('transform', (d: SimulationNodeData) => `translate(${d.x || 0},${d.y || 0})`);
     });
-
-    // Drag functions
-    function dragstarted(event: any, d: SimulationNodeData) {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-    }
-
-    function dragged(event: any, d: SimulationNodeData) {
-      d.fx = event.x;
-      d.fy = event.y;
-    }
-
-    function dragended(event: any, d: SimulationNodeData) {
-      if (!event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    }
 
     // Apply radial layout if selected
     if (layout === 'radial') {
@@ -159,21 +145,38 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
     return () => {
       simulation.stop();
     };
-  }, [filteredNodes, layout, onNodeSelect, navigate]);
+  }, [filteredNodes, layout, onNodeSelect, forceStrength, svgHeight, createRadialPlacement, navigate]);
+
+  function dragstarted(event: any, d: SimulationNodeData) {
+    if (!event.active) d3.forceSimulation().alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  function dragged(event: any, d: SimulationNodeData) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+
+  function dragended(event: any, d: SimulationNodeData) {
+    if (!event.active) d3.forceSimulation().alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
 
   return (
     <div className={styles.navigationContainer}>
       <div className={styles.controls}>
         <select
           value={layout}
-          onChange={(e) => setLayout(e.target.value as 'force' | 'radial')}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLayout(e.target.value as 'force' | 'radial')}
         >
           <option value="force">Force Layout</option>
           <option value="radial">Radial Layout</option>
         </select>
         <select
           value={filter}
-          onChange={(e) => setFilter(e.target.value as 'all' | NodeCategory)}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilter(e.target.value as 'all' | NodeCategory)}
         >
           <option value="all">All Nodes</option>
           <option value="core">Core Modules</option>
@@ -185,10 +188,10 @@ const InteractiveNodeNavigation: React.FC<InteractiveNodeNavigationProps> = ({
           type="text"
           placeholder="Search nodes..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
         />
       </div>
-      <svg ref={svgRef} width="100%" height="500px"></svg>
+      <svg ref={svgRef} width="100%" height={svgHeight}></svg>
       {selectedNode && (
         <div className={styles.nodeDetails}>
           <h3>{selectedNode.name}</h3>

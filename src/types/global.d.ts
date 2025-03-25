@@ -1,7 +1,7 @@
 // src/types/global.d.ts
 declare module "*.module.scss" {
-  const classes: { [key: string]: string };
-  export default classes;
+  const styles: { [key: string]: string };
+  export default styles;
 }
 
 declare module "@components/*" {

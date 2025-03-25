@@ -3,24 +3,12 @@ import { Routes, Route } from 'react-router-dom';
 import InteractiveNodeNavigation from './components/InteractiveNodeNavigation';
 import { navigationNodeData, NodeData } from './models/NodeTypes';
 import LoadingSpinner from './components/LoadingSpinner';
-import ErrorBoundary from './components/ErrorBoundary/index.tsx';
+import ErrorBoundary from './components/ErrorBoundary';
 import ContactPage from './pages/ContactPage';
-
-// Define common page props interface
-interface PageProps {
-  data?: NodeData[];
-  selectedNode?: NodeData | null;
-}
-
-// Define props for HomePage
-interface HomePageProps {
-  data?: NodeData[];
-}
 
 // Lazy load pages
 const HomePage = React.lazy(() => import('./pages/HomePage'));
 const ServicesPage = React.lazy(() => import('./pages/ServicesPage'));
-const CaseStudiesPage = React.lazy(() => import('./pages/CaseStudiesPage'));
 const SparkEnginePage = React.lazy(() => import('./pages/SparkEnginePage'));
 const NeuroTechNetworkPage = React.lazy(() => import('./pages/NeuroTechNetworkPage'));
 const AutonomousAgentGenomePage = React.lazy(() => import('./pages/AutonomousAgentGenomePage'));
@@ -40,9 +28,7 @@ interface RouteData {
   children?: RouteData[];
 }
 
-interface ServicesPageProps {
-  data?: NodeData[];
-}
+
 
 const App: React.FC = () => {
   const [selectedNode, setSelectedNode] = useState<NodeData | null>(null);
@@ -52,8 +38,8 @@ const App: React.FC = () => {
     label: node.name || '',
     link: node.id || '',
     title: node.name || '',
-    description: node.description || '',
-    icon: node.icon || '',
+    description: node.description ?? '',
+    icon: node.icon ?? '',
     id: node.id,
     name: node.name,
     route: node.route,
@@ -104,7 +90,7 @@ const App: React.FC = () => {
                 <div role="alert" aria-label="Page Not Found">
                   <h1>404 - Page Not Found</h1>
                   <p>The page you are looking for does not exist.</p>
-                  <p>Selected Node: {selectedNode?.name || 'None'}</p>
+                  <p>Selected Node: {selectedNode?.name ?? 'None'}</p>
                 </div>
               }
             />
@@ -116,3 +102,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

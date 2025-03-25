@@ -29,6 +29,10 @@ const SmartNavigation: React.FC<SmartNavigationProps> = ({ nodes }) => {
     }
   }, [location, nodes]);
 
+  const findNodeByRoute = (route: string, nodes: NodeData[]): NodeData | undefined => {
+    return nodes.find(node => node.route === route);
+  };
+  
   const generateContextualSuggestions = (
     currentNode: NodeData, 
     allNodes: NodeData[]

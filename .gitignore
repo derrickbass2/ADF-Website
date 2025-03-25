@@ -168,3 +168,5 @@ static/dist/
 
 # Misc
 .tmp/
+# Sentry Config File
+.env.sentry-build-plugin

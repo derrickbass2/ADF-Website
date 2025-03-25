@@ -1,0 +1,88 @@
+{
+  "compilerOptions": {
+    // Target modern JavaScript
+    "target": "ES2022",
+    
+    // Include modern library definitions
+    "lib": [
+      "DOM", 
+      "DOM.Iterable", 
+      "ESNext"
+    ],
+
+    // Module and Module Resolution
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+
+    // Strict Type Checking
+    "strict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+
+    // Additional Type Checking
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // JavaScript and Import Handling
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // React and JSX
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+
+    // Compilation and Output
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmit": true,
+
+    // Path Aliases
+    "baseUrl": ".",
+    "paths": {
+      "@types/*": ["./src/types/*"],
+      "@components/*": ["./src/components/*"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@models/*": ["./src/models/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@store/*": ["./src/store/*"],
+      "@/*": ["./src/*"]
+    },
+
+    // Type Roots
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+
+    // Experimental Features
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+
+  // Include and Exclude
+  "include": [
+    "src/**/*",
+    "global.d.ts",
+    "vite-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
+
+  // Project References (if using project references)
+  "references": [
+    { "path": "./tsconfig.node.json" }
+  ]
+}

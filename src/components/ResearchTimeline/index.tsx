@@ -115,7 +115,7 @@ const ResearchTimeline: React.FC = () => {
         .on('start', dragstarted)
         .on('drag', dragged)
         .on('end', dragended))
-      .on('click', (event, d) => {
+      .on('click', (_, d) => {
         setSelectedNode(d);
       });
 
@@ -132,29 +132,32 @@ const ResearchTimeline: React.FC = () => {
 
     simulation.on('tick', () => {
       link
-        .attr('x1', d => (d.source as any).x)
-        .attr('y1', d => (d.source as any).y)
-        .attr('x2', d => (d.target as any).x)
-        .attr('y2', d => (d.target as any).y);
+        .attr('x1', d => (d.source as d3.SimulationNodeDatum).x ?? 0)
+        .attr('y1', d => (d.source as d3.SimulationNodeDatum).y ?? 0)
+        .attr('x2', d => (d.target as d3.SimulationNodeDatum).x ?? 0)
+        .attr('y2', d => (d.target as d3.SimulationNodeDatum).y ?? 0);
 
-      node.attr('transform', d => `translate(${(d as any).x},${(d as any).y})`);
+      node.attr('transform', d => `translate(${d.x ?? 0},${d.y ?? 0})`);
     });
 
-    function dragstarted(event: any) {
+    function dragstarted(event: d3.D3DragEvent<SVGGElement, ResearchNode, unknown>) {
       if (!event.active) simulation.alphaTarget(0.3).restart();
-      (event.subject as any).fx = (event.subject as any).x;
-      (event.subject as any).fy = (event.subject as any).y;
+      const subject = event.subject as ResearchNode;
+      subject.fx = subject.x;
+      subject.fy = subject.y;
     }
 
-    function dragged(event: any) {
-      (event.subject as any).fx = event.x;
-      (event.subject as any).fy = event.y;
+    function dragged(event: d3.D3DragEvent<SVGGElement, ResearchNode, unknown>) {
+      const subject = event.subject as ResearchNode;
+      subject.fx = event.x;
+      subject.fy = event.y;
     }
 
-    function dragended(event: any) {
+    function dragended(event: d3.D3DragEvent<SVGGElement, ResearchNode, unknown>) {
       if (!event.active) simulation.alphaTarget(0);
-      (event.subject as any).fx = null;
-      (event.subject as any).fy = null;
+      const subject = event.subject as ResearchNode;
+      subject.fx = null;
+      subject.fy = null;
     }
 
   }, []);

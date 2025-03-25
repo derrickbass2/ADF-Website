@@ -1,16 +1,6 @@
 // src/services/openaiService.ts
 import OpenAI from 'openai';
 
-// Add type definition for Vite environment variables
-interface ImportMetaEnv {
-  VITE_OPENAI_API_KEY: string;
-  [key: string]: any;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
-
 class OpenAIService {
   private readonly client: OpenAI;
 
@@ -55,27 +45,7 @@ class OpenAIService {
   }
 
   // Add more methods as needed, like code generation, translation, etc.
-  private async retryWithBackoff<T>(
-    fn: () => Promise<T>, 
-    maxRetries = 3
-  ): Promise<T> {
-    let retries = 0;
-    while (retries < maxRetries) {
-      try {
-        return await fn();
-      } catch (error: any) {
-        if (error.status === 429) {
-          // Rate limit error
-          const waitTime = Math.pow(2, retries) * 1000;
-          await new Promise(resolve => setTimeout(resolve, waitTime));
-          retries++;
-        } else {
-          throw error;
-        }
-      }
-    }
-    throw new Error('Max retries exceeded');
-  }
+  // Removed unused retryWithBackoff method to resolve the compile error.
 }
 // openaiService.ts
 const apiKey = import.meta.env.VITE_API_KEY;

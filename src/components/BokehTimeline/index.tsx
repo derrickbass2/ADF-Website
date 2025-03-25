@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from './BokehTimeline.module.scss';
 
 interface BokehTimelineProps {
-    researchData?: any[];
+    researchData?: Array<Record<string, unknown>>;
 }
 
 const BokehTimeline: React.FC<BokehTimelineProps> = ({ researchData }) => {

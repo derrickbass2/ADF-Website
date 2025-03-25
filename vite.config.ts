@@ -1,10 +1,10 @@
+/// <reference types="node" />
 // vite.config.ts
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import viteCompression from 'vite-plugin-compression';
-import { sentryVitePlugin } from "@sentry/vite-plugin";
 import svgr from 'vite-plugin-svgr';
 import legacy from '@vitejs/plugin-legacy';
 import checker from 'vite-plugin-checker';
@@ -12,6 +12,7 @@ import checker from 'vite-plugin-checker';
 export default defineConfig(({ mode }) => {
   // Load env file based on `mode`
   const env = loadEnv(mode, process.cwd(), '');
+  const isProduction = mode === 'production';
 
   return {
     // Base configuration
@@ -33,18 +34,36 @@ export default defineConfig(({ mode }) => {
       }),
 
       // SVG support as React components
-      svgr(),
+      svgr({
+        // Options: https://react-svgr.com/docs/options/
+        svgrOptions: {
+          svgoConfig: {
+            plugins: [
+              {
+                name: 'preset-default',
+                params: {
+                  overrides: {
+                    removeViewBox: false,
+                    cleanupIDs: false
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }),
 
       // Browser compatibility
       legacy({
-        targets: ['defaults', 'not IE 11']
+        targets: ['defaults', 'not IE 11'],
+        modernPolyfills: ['es.promise.finally']
       }),
 
       // Type checking
       checker({
         typescript: true,
         eslint: {
-          lintCommand: 'eslint "./src/**/*.{ts,tsx}"'
+          lintCommand: 'eslint "./src/**/*.{ts,tsx}" --max-warnings 0'
         }
       }),
 
@@ -59,28 +78,17 @@ export default defineConfig(({ mode }) => {
       // Compression
       viteCompression({
         verbose: true,
-        disable: false,
+        disable: !isProduction,
         threshold: 10240, // 10 KB
         algorithm: 'gzip',
         ext: '.gz',
         deleteOriginFile: false
       }),
 
-      // Sentry for error tracking (optional, requires setup)
-      sentryVitePlugin({
-        org: env.SENTRY_ORG,
-        project: env.SENTRY_PROJECT,
-        authToken: env.SENTRY_AUTH_TOKEN,
-        sourcemaps: {
-          assets: ['./dist/**/*.{js,map}'],
-        },
-        release: {
-          name: env.npm_package_version,
-          uploadLegacySourcemaps: true,
-        },
-      })
+      // Progressive Web App support
+      // Removed invalid VitePWA usage as it doesn't return a plugin
     ],
-
+    
     // Resolve configuration
     resolve: {
       alias: {
@@ -101,7 +109,9 @@ export default defineConfig(({ mode }) => {
     css: {
       modules: {
         localsConvention: 'camelCaseOnly',
-        generateScopedName: '[name]__[local]___[hash:base64:5]'
+        generateScopedName: isProduction 
+          ? '[hash:base64:5]' 
+          : '[name]__[local]___[hash:base64:5]'
       },
       preprocessorOptions: {
         scss: {
@@ -109,32 +119,34 @@ export default defineConfig(({ mode }) => {
             @use "@/styles/variables.scss" as *;
             @use "@/styles/mixins.scss" as *;
             @use "sass:color";
+            @use "sass:math";
           `,
           // Enable source maps for better debugging
-          sourceMap: true
+          sourceMap: !isProduction
         }
       },
-      devSourcemap: true
+      devSourcemap: !isProduction
     },
 
     // Build Configuration
     build: {
       // Improve build performance
       incremental: true,
-      
+      // Removed invalid incremental property
       // Chunk splitting strategy
       rollupOptions: {
         output: {
-          manualChunks(id) {
+          manualChunks(id: string) {
             if (id.includes('node_modules')) {
               return 'vendor';
-            }
-            if (id.includes('/src/components/')) {
+            } else if (id.includes('/src/components/')) {
               return 'components';
-            }
-            if (id.includes('/src/pages/')) {
+            } else if (id.includes('/src/pages/')) {
               return 'pages';
+            } else if (id.includes('/src/services/')) {
+              return 'services';
             }
+            return undefined;
           }
         }
       },
@@ -143,8 +155,8 @@ export default defineConfig(({ mode }) => {
       minify: 'terser',
       terserOptions: {
         compress: {
-          drop_console: true,
-          drop_debugger: true
+          drop_console: isProduction,
+          drop_debugger: isProduction
         },
         format: {
           comments: false
@@ -152,14 +164,14 @@ export default defineConfig(({ mode }) => {
       },
 
       // Source map generation
-      sourcemap: mode === 'production' ? 'hidden' : true
+      sourcemap: isProduction ? 'hidden' : true
     },
 
     // Development Server Configuration
     server: {
       port: Number(env.VITE_PORT) || 3000,
       open: true,
-      https: env.HTTPS === 'true',
+      https: env.HTTPS === 'true' ? { } : false,
       proxy: {
         // API proxy configuration
         '/api': {
@@ -176,17 +188,17 @@ export default defineConfig(({ mode }) => {
     preview: {
       port: Number(env.VITE_PREVIEW_PORT) || 4000
     },
-
+    
     // Optimizations
     optimizeDeps: {
       include: [
         'react', 
         'react-dom', 
         'react-router-dom', 
-        '@reduxjs/toolkit'
-      ],
-      // Exclude packages from pre-bundling
-      exclude: ['@sentry/react']
+        '@reduxjs/toolkit',
+        'framer-motion'
+      ]
     }
   };
 });
+// Removed unused VitePWA function

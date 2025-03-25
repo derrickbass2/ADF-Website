@@ -6,7 +6,6 @@ import styles from './ErrorBoundary.module.scss';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
-  fallback?: React.ReactNode;
 }
 
 interface ErrorState {
@@ -92,7 +91,10 @@ class SentryErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorState
 
 // Wrap with Sentry's error boundary for additional tracking
 export default Sentry.withErrorBoundary(SentryErrorBoundary, {
-  fallback: ({ error }) => (
-    <div>An error occurred: {error?.message}</div>
+  fallback: ({ error, componentStack, resetError }: { error: unknown; componentStack: string; resetError: () => void }) => (
+    <div>
+      <p>An error occurred: {error instanceof Error ? error.message : 'Unknown error'}</p>
+      <button onClick={resetError}>Try Again</button>
+    </div>
   ),
 });
