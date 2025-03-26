@@ -12,7 +12,8 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    ignores: ['dist', 'node_modules'], // Replaces .eslintignore
+    files: ['src/**/*.{ts,tsx}'], // Explicitly include TypeScript and TSX files
+    ignores: ['dist', 'node_modules'], // Exclude only necessary directories
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -48,16 +49,14 @@ export default [
       react: {
         version: 'detect'
       }
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: true // Replaces the removed option
     }
   },
-  js.configs.recommended,
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      'eslint:recommended',
-      'plugin:@typescript-eslint/recommended',
-      'plugin:react-hooks/recommended',
-      'plugin:react/recommended'
-    ]
-  }
+  // Include recommended configurations directly
+  js.configs.recommended, // Include JavaScript recommended rules
+  typescript.configs.recommended, // Include TypeScript recommended rules
+  react.configs.recommended, // Include React recommended rules
+  reactHooks.configs.recommended // Include React Hooks recommended rules
 ];

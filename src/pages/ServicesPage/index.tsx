@@ -60,7 +60,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ data }) => {
 };
 
 // Example usage of ServicesPage component
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return <ServicesPage data={services} />;
 };
 

@@ -10,32 +10,29 @@ import legacy from '@vitejs/plugin-legacy';
 import checker from 'vite-plugin-checker';
 
 export default defineConfig(({ mode }) => {
-  // Load env file based on `mode`
+  // Load environment variables based on `mode`
   const env = loadEnv(mode, process.cwd(), '');
   const isProduction = mode === 'production';
 
   return {
     // Base configuration
     base: env.VITE_BASE_URL || '/',
-    
+
     // Plugins
     plugins: [
       // React plugin
       react({
-        // Use React automatic runtime
         jsxRuntime: 'automatic',
-        // Babel configuration for advanced transformations
         babel: {
           plugins: [
             ['@babel/plugin-proposal-decorators', { legacy: true }],
-            ['@babel/plugin-proposal-class-properties', { loose: true }]
+            ['@babel/plugin-transform-class-properties', { loose: true }]
           ]
         }
       }),
 
-      // SVG support as React components
+      // SVG as React components
       svgr({
-        // Options: https://react-svgr.com/docs/options/
         svgrOptions: {
           svgoConfig: {
             plugins: [
@@ -53,13 +50,13 @@ export default defineConfig(({ mode }) => {
         }
       }),
 
-      // Browser compatibility
+      // Legacy browser support
       legacy({
         targets: ['defaults', 'not IE 11'],
         modernPolyfills: ['es.promise.finally']
       }),
 
-      // Type checking
+      // TypeScript and ESLint checking
       checker({
         typescript: true,
         eslint: {
@@ -67,7 +64,7 @@ export default defineConfig(({ mode }) => {
         }
       }),
 
-      // Performance analysis
+      // Bundle analysis
       visualizer({
         filename: './stats.html',
         open: false,
@@ -83,12 +80,9 @@ export default defineConfig(({ mode }) => {
         algorithm: 'gzip',
         ext: '.gz',
         deleteOriginFile: false
-      }),
-
-      // Progressive Web App support
-      // Removed invalid VitePWA usage as it doesn't return a plugin
+      })
     ],
-    
+
     // Resolve configuration
     resolve: {
       alias: {
@@ -101,16 +95,15 @@ export default defineConfig(({ mode }) => {
         '@utils': path.resolve(__dirname, './src/utils'),
         '@hooks': path.resolve(__dirname, './src/hooks')
       },
-      // Explicitly define extensions to resolve
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.scss']
     },
 
-    // CSS Configuration
+    // CSS configuration
     css: {
       modules: {
         localsConvention: 'camelCaseOnly',
-        generateScopedName: isProduction 
-          ? '[hash:base64:5]' 
+        generateScopedName: isProduction
+          ? '[hash:base64:5]'
           : '[name]__[local]___[hash:base64:5]'
       },
       preprocessorOptions: {
@@ -121,19 +114,14 @@ export default defineConfig(({ mode }) => {
             @use "sass:color";
             @use "sass:math";
           `,
-          // Enable source maps for better debugging
           sourceMap: !isProduction
         }
       },
       devSourcemap: !isProduction
     },
 
-    // Build Configuration
+    // Build configuration
     build: {
-      // Improve build performance
-      incremental: true,
-      // Removed invalid incremental property
-      // Chunk splitting strategy
       rollupOptions: {
         output: {
           manualChunks(id: string) {
@@ -150,8 +138,6 @@ export default defineConfig(({ mode }) => {
           }
         }
       },
-
-      // Minification and optimization
       minify: 'terser',
       terserOptions: {
         compress: {
@@ -162,43 +148,38 @@ export default defineConfig(({ mode }) => {
           comments: false
         }
       },
-
-      // Source map generation
       sourcemap: isProduction ? 'hidden' : true
     },
 
-    // Development Server Configuration
+    // Development server configuration
     server: {
       port: Number(env.VITE_PORT) || 3000,
       open: true,
-      https: env.HTTPS === 'true' ? { } : false,
+      https: env.HTTPS === 'true' ? {} : false,
       proxy: {
-        // API proxy configuration
         '/api': {
           target: env.VITE_API_URL,
           changeOrigin: true,
           secure: false
         }
       },
-      // Enable CORS
       cors: true
     },
 
-    // Preview Configuration
+    // Preview configuration
     preview: {
       port: Number(env.VITE_PREVIEW_PORT) || 4000
     },
-    
-    // Optimizations
+
+    // Dependency optimization
     optimizeDeps: {
       include: [
-        'react', 
-        'react-dom', 
-        'react-router-dom', 
+        'react',
+        'react-dom',
+        'react-router-dom',
         '@reduxjs/toolkit',
         'framer-motion'
       ]
     }
   };
 });
-// Removed unused VitePWA function

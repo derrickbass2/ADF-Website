@@ -2,17 +2,13 @@
   "compilerOptions": {
     // Target modern JavaScript
     "target": "ES2022",
-    
+
     // Include modern library definitions
-    "lib": [
-      "DOM", 
-      "DOM.Iterable", 
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
 
     // Module and Module Resolution
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
 
     // Strict Type Checking
@@ -30,7 +26,7 @@
 
     // JavaScript and Import Handling
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false, // Set to false unless you want to type-check JavaScript files
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -58,10 +54,7 @@
     },
 
     // Type Roots
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/types"
-    ],
+    "typeRoots": ["./node_modules/@types", "./src/types"],
 
     // Experimental Features
     "experimentalDecorators": true,
@@ -69,20 +62,9 @@
   },
 
   // Include and Exclude
-  "include": [
-    "src/**/*",
-    "global.d.ts",
-    "vite-env.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ],
+  "include": ["src/**/*", "global.d.ts", "vite-env.d.ts"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"],
 
   // Project References (if using project references)
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
