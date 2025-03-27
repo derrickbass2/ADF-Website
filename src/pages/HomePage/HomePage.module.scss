@@ -3,67 +3,254 @@
 @use "@/styles/mixins.scss" as mixins;
 
 .homeContainer {
-  max-width: vars.$breakpoint-lg;
+  max-width: vars.$content-width;
   margin: 0 auto;
-  padding: vars.$spacing-lg;
+  padding: vars.$section-padding;
   background-color: vars.$background-color;
 
   @include mixins.md {
-    padding: vars.$spacing-md;
+    padding: vars.$section-padding * 0.75;
+  }
+
+  @include mixins.sm {
+    padding: vars.$section-padding * 0.5;
   }
 }
 
-.heroSection {
-  text-align: center;
-  margin-bottom: vars.$spacing-xl;
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$section-gap;
+}
 
-  h1 {
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: vars.$section-gap;
+
+  @include mixins.md {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .headline {
     color: vars.$primary-color;
     font-size: 2.5rem;
-    margin-bottom: vars.$spacing-md;
+    margin-bottom: vars.$section-gap * 0.5;
+
+    @include mixins.md {
+      font-size: 3rem;
+    }
 
     @include mixins.sm {
       font-size: 2rem;
     }
   }
 
-  p {
-    color: vars.$dark-text;
-    font-size: 1.2rem;
-    max-width: 800px;
-    margin: 0 auto;
+  .subHeadline {
+    color: vars.$text-secondary;
+    font-size: 1.5rem;
+    margin-bottom: vars.$section-gap * 0.5;
+
+    @include mixins.md {
+      font-size: 1.8rem;
+    }
 
     @include mixins.sm {
-      font-size: 1rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  .ctaButtons {
+    display: flex;
+    gap: vars.$button-margin;
+    margin-bottom: vars.$section-gap;
+
+    @include mixins.sm {
+      flex-direction: column;
+    }
+  }
+
+  .heroAnimation {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    background-color: vars.$secondary-color;
+    border-radius: vars.$border-radius-md; // Changed from border-radius
+
+    @include mixins.md {
+      order: 2;
     }
   }
 }
 
-.valueProposition {
-  text-align: center;
+.sectionHeadline {
+  color: vars.$primary-color;
+  font-size: 2rem;
+  margin-bottom: vars.$section-gap * 0.5;
 
-  h2 {
-    color: vars.$primary-color;
-    margin-bottom: vars.$spacing-lg;
+  @include mixins.md {
+    font-size: 2.5rem;
   }
 
-  .valueGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: vars.$spacing-md;
+  @include mixins.sm {
+    font-size: 1.8rem;
+  }
+}
 
-    @include mixins.sm {
-      grid-template-columns: 1fr;
+.bodyContent {
+  color: vars.$text-primary;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: vars.$section-gap;
+
+  @include mixins.md {
+    font-size: 1.1rem;
+  }
+
+  @include mixins.sm {
+    font-size: 0.9rem;
+  }
+}
+
+.aboutSection,
+.challengesSection,
+.processSection,
+.caseStudiesSection,
+.contactSection {
+  background-color: vars.$card-background;
+  padding: vars.$section-padding;
+  border-radius: vars.$border-radius-md; // Changed from border-radius
+  box-shadow: vars.$shadow-subtle; // Changed from box-shadow
+
+  @include mixins.md {
+    padding: vars.$section-padding * 0.75;
+  }
+
+  @include mixins.sm {
+    padding: vars.$section-padding * 0.5;
+  }
+}
+
+.keyFeatures,
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: vars.$column-gap;
+  margin-bottom: vars.$section-gap;
+
+  .feature,
+  .highlight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: vars.$column-gap * 0.5;
+    }
+
+    p {
+      color: vars.$text-secondary;
+      font-size: 0.9rem;
     }
   }
+}
 
-  .valueItem {
-    @include mixins.card;
-    padding: vars.$spacing-md;
+.challengeList {
+  list-style-type: disc;
+  margin-left: vars.$column-gap;
+  margin-bottom: vars.$section-gap;
+
+  li {
+    color: vars.$text-primary;
+    margin-bottom: vars.$column-gap * 0.25;
+  }
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$section-gap;
+
+  .timelineItem {
+    background-color: vars.$secondary-color;
+    padding: vars.$section-padding;
+    border-radius: vars.$border-radius-md; // Changed from border-radius
 
     h3 {
       color: vars.$primary-color;
-      margin-bottom: vars.$spacing-sm;
+      font-size: 1.2rem;
+      margin-bottom: vars.$column-gap * 0.5;
     }
+
+    p {
+      color: vars.$text-primary;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$form-gap;
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$label-margin;
+
+    .label {
+      color: vars.$text-secondary;
+      font-size: 0.9rem;
+    }
+
+    .input {
+      padding: vars.$input-padding;
+      border: 1px solid vars.$border-color;
+      border-radius: vars.$border-radius-md; // Changed from border-radius
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: vars.$primary-color;
+      }
+    }
+  }
+}
+
+.button {
+  padding: vars.$button-padding;
+  border: none;
+  border-radius: vars.$border-radius-md; // Changed from border-radius
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.primaryButton {
+  background-color: vars.$primary-color;
+  color: vars.$card-background;
+
+  &:hover {
+    background-color: vars.$primary-hover;
+  }
+}
+
+.secondaryButton {
+  background-color: vars.$secondary-color;
+  color: vars.$card-background;
+
+  &:hover {
+    background-color: vars.$secondary-hover;
   }
 }

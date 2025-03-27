@@ -1,0 +1,55 @@
+// src/components/Layout/Layout.module.scss
+@use '@/styles/variables.scss' as vars;
+
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: vars.$background-color;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: vars.$spacing-md;
+  background-color: vars.$card-background;
+  box-shadow: vars.$shadow-subtle;
+}
+
+.logo {
+  img {
+    height: 40px;
+  }
+}
+
+.mainNav {
+  display: flex;
+  gap: vars.$spacing-md;
+  
+  a {
+    color: vars.$text-primary;
+    text-decoration: none;
+    font-weight: 500;
+    padding: vars.$spacing-sm;
+    
+    &:hover {
+      color: vars.$primary-color;
+    }
+  }
+}
+
+.mainContent {
+  flex: 1;
+  padding: vars.$spacing-lg;
+  max-width: vars.$content-width;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer {
+  padding: vars.$spacing-md;
+  background-color: vars.$secondary-color;
+  color: vars.$white;
+  text-align: center;
+}

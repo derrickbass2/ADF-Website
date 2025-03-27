@@ -1,0 +1,6 @@
+// src/styles/_forwards.scss
+/* Make sure we're correctly forwarding the variables */
+@forward "sass:color";
+@forward "./variables.scss";
+@forward "./mixins.scss"; 
+@forward "./functions.scss"; // Remove "as functions-*" to simplify

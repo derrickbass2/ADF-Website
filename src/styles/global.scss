@@ -1,64 +1,136 @@
-// src/styles/global.scss
-@use "@/styles/variables.scss" as vars;
-@use "@/styles/mixins.scss" as mixins;
+// Import variables
+@use './variables.scss' as *;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+// Global Styles
 body {
-  font-family: vars.$font-primary;
-  background-color: vars.$background-color;
-  color: vars.$dark-text;
-  line-height: 1.6;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  background-color: $background-color;
+  color: $text-primary;
 }
 
-#root {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+// Section Styles
+.section {
+  margin: $section-margin;
+  padding: $section-padding;
+  gap: $section-gap;
 }
 
-// Typography
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: vars.$font-secondary;
-  color: vars.$primary-color;
+// Container Styles
+.container {
+  margin: $container-margin;
+  padding: $container-padding;
+  gap: $container-gap;
+  max-width: $content-width;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-// Buttons
-.btn {
-  &-primary {
-    background-color: vars.$primary-color;
-    color: vars.$white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: vars.$border-radius-sm;
-    transition: background-color 0.3s ease;
+// Row Styles
+.row {
+  margin: $row-margin;
+  padding: $row-padding;
+  gap: $row-gap;
+  display: flex;
+  flex-wrap: wrap;
+}
 
-    &:hover {
-      // Use color.scale() instead of darken()
-      background-color: color.scale(
-        vars.$primary-color,
-        $lightness: -30.3571428571%
-      );
-    }
+// Column Styles
+.column {
+  margin: $column-margin;
+  padding: $column-padding;
+  gap: $column-gap;
+  flex: 1;
+}
+
+// Button Styles
+.button {
+  margin: $button-margin;
+  padding: $button-padding;
+  background-color: $primary-color;
+  color: $card-background;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $primary-hover;
   }
 }
 
-// Utility Classes
-.text-center {
-  text-align: center;
+// Form Styles
+.form {
+  margin: $form-margin;
+  padding: $form-padding;
+  gap: $form-gap;
 }
 
-.container {
-  max-width: vars.$breakpoint-lg;
-  margin: 0 auto;
-  padding: 0 15px;
+// Input Styles
+.input {
+  margin: $input-margin;
+  padding: $input-padding;
+  border: 1px solid $border-color;
+}
+
+// Label Styles
+.label {
+  margin: $label-margin;
+  padding: $label-padding;
+  color: $text-secondary;
+}
+
+// Card Styles
+.card {
+  background-color: $card-background;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Alert Styles
+.alert {
+  background-color: $alert-background;
+  border: 1px solid $alert-border;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+// Tooltip Styles
+.tooltip {
+  position: relative;
+  display: inline-block;
+
+  .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: $tooltip-background;
+    color: $tooltip-text;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: $tooltip-background transparent transparent transparent;
+    }
+  }
+
+  &:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
 }

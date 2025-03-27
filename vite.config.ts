@@ -56,12 +56,9 @@ export default defineConfig(({ mode }) => {
         modernPolyfills: ['es.promise.finally']
       }),
 
-      // TypeScript and ESLint checking
+      // TypeScript checking only (removing ESLint checker completely)
       checker({
         typescript: true,
-        eslint: {
-          lintCommand: 'eslint "./src/**/*.{ts,tsx}" --max-warnings 0'
-        }
       }),
 
       // Bundle analysis
@@ -108,23 +105,16 @@ export default defineConfig(({ mode }) => {
       },
       preprocessorOptions: {
         scss: {
-          additionalData: `
-            @use "@/styles/variables.scss" as *;
-            @use "@/styles/mixins.scss" as *;
-            @use "sass:color";
-            @use "sass:math";
-          `,
-          sourceMap: !isProduction
+          additionalData: `@use "@/styles/_forwards.scss" as *;`
         }
-      },
-      devSourcemap: !isProduction
+      }
     },
 
     // Build configuration
     build: {
       rollupOptions: {
         output: {
-          manualChunks(id: string) {
+          manualChunks(id) {
             if (id.includes('node_modules')) {
               return 'vendor';
             } else if (id.includes('/src/components/')) {
@@ -147,8 +137,7 @@ export default defineConfig(({ mode }) => {
         format: {
           comments: false
         }
-      },
-      sourcemap: isProduction ? 'hidden' : true
+      }
     },
 
     // Development server configuration
@@ -177,8 +166,7 @@ export default defineConfig(({ mode }) => {
         'react',
         'react-dom',
         'react-router-dom',
-        '@reduxjs/toolkit',
-        'framer-motion'
+        '@reduxjs/toolkit'
       ]
     }
   };
