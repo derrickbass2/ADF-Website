@@ -1,5 +1,15 @@
-// Import variables
+// Import variables and color module
 @use './variables.scss' as *;
+@use 'sass:color';
+
+// Reset & Base Styles
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 // Global Styles
 body {
@@ -8,6 +18,30 @@ body {
   line-height: $line-height-base;
   background-color: $background-color;
   color: $text-primary;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 // Section Styles
@@ -53,9 +87,42 @@ body {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  border-radius: 4px;
+  font-weight: 500;
+  text-align: center;
+  display: inline-block;
 
   &:hover {
     background-color: $primary-hover;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  &.secondary {
+    background-color: $secondary-color;
+    
+    &:hover {
+      // Fix: Using color.adjust instead of darken
+      background-color: color.adjust($secondary-color, $lightness: -10%);
+    }
+  }
+  
+  &.outline {
+    background-color: transparent;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+    
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+    }
   }
 }
 
@@ -71,6 +138,15 @@ body {
   margin: $input-margin;
   padding: $input-padding;
   border: 1px solid $border-color;
+  border-radius: 4px;
+  width: 100%;
+  font-family: inherit;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+  }
 }
 
 // Label Styles
@@ -78,6 +154,8 @@ body {
   margin: $label-margin;
   padding: $label-padding;
   color: $text-secondary;
+  display: block;
+  font-weight: 500;
 }
 
 // Card Styles
@@ -86,14 +164,55 @@ body {
   border: 1px solid $border-color;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
 }
 
 // Alert Styles
 .alert {
   background-color: $alert-background;
   border: 1px solid $alert-border;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  
+  &.success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+  }
+  
+  &.warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+  }
+  
+  &.error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+  }
+}
+
+// Error page styles
+.error-page {
+  text-align: center;
+  padding: 3rem 1rem;
+  
+  h1, h2 {
+    margin-bottom: 1rem;
+    color: #721c24;
+  }
+  
+  p {
+    margin-bottom: 1.5rem;
+  }
 }
 
 // Tooltip Styles
@@ -133,4 +252,62 @@ body {
     visibility: visible;
     opacity: 1;
   }
+}
+
+// Utility classes
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 3rem; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+// Animation utilities
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Scale animation
+.scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+// Slide in from bottom
+.slide-in-up {
+  animation: slideInUp 0.4s ease-out;
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

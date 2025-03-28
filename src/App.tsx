@@ -1,6 +1,5 @@
-// src/App.tsx
 import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { navigationNodeData, NodeData } from './models/NodeTypes';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -31,10 +30,8 @@ interface RouteData {
   route?: string;
   children?: RouteData[];
 }
+
 const App: React.FC = () => {
-  // Define selectedNode for the 404 page - using 'any' to avoid type errors
-  const selectedNode: { name: string } | null = null;
-  
   // Helper function to transform navigation node data for route props
   const transformRouteData = (node: NodeData): RouteData => ({
     label: node.name || '',
@@ -49,50 +46,48 @@ const App: React.FC = () => {
   });
 
   return (
-    <BrowserRouter>
-      <ErrorBoundary fallback={<div>Something went wrong</div>}>
-        <Layout>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <HomePage
-                    data={navigationNodeData[0].children}
-                  />
-                }
-              />
-              <Route
-                path="/services"
-                element={
-                  <ServicesPage
-                    data={navigationNodeData[0].children?.find(
-                      (node: NodeData) => node.id === 'services'
-                    )?.children as any}
-                  />
-                }
-              />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/spark-engine" element={<SparkEnginePage />} />
-              <Route path="/neurotech" element={<NeuroTechNetworkPage />} />
-              <Route path="/autonomous-agent-genome" element={<AutonomousAgentGenomePage />} />
-              <Route path="/research/projects" element={<ResearchPage />} />
-              {/* 404 Route */}
-              <Route
-                path="*"
-                element={
-                  <div role="alert" aria-label="Page Not Found">
-                    <h1>404 - Page Not Found</h1>
-                    <p>The page you are looking for does not exist.</p>
-                    <p>Selected Node: {selectedNode !== null ? (selectedNode as { name: string }).name : 'None'}</p>
-                  </div>
-                }
-              />
-            </Routes>
-          </Suspense>
-        </Layout>
-      </ErrorBoundary>
-    </BrowserRouter>
+    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+      <Layout>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  data={navigationNodeData[0].children}
+                />
+              }
+            />
+            <Route
+              path="/services"
+              element={
+                <ServicesPage
+                  data={navigationNodeData[0].children?.find(
+                    (node: NodeData) => node.id === 'services'
+                  )?.children as any}
+                />
+              }
+            />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/spark-engine" element={<SparkEnginePage />} />
+            <Route path="/neurotech" element={<NeuroTechNetworkPage />} />
+            <Route path="/autonomous-agent-genome" element={<AutonomousAgentGenomePage />} />
+            <Route path="/research/projects" element={<ResearchPage />} />
+            {/* 404 Route */}
+            <Route
+              path="*"
+              element={
+                <div role="alert" aria-label="Page Not Found" className="error-page">
+                  <h1>404 - Page Not Found</h1>
+                  <p>The page you are looking for does not exist.</p>
+                </div>
+              }
+            />
+          </Routes>
+        </Suspense>
+      </Layout>
+    </ErrorBoundary>
   );
 };
+
 export default App;

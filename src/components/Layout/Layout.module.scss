@@ -1,5 +1,4 @@
-// src/components/Layout/Layout.module.scss
-@use '@/styles/variables.scss' as vars;
+@use '../../styles/variables.scss' as vars;
 
 .layoutContainer {
   display: flex;
@@ -20,6 +19,12 @@
 .logo {
   img {
     height: 40px;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      // Fix: Using translateY instead of scale to avoid SASS function conflict
+      transform: translateY(-2px);
+    }
   }
 }
 
@@ -32,9 +37,12 @@
     text-decoration: none;
     font-weight: 500;
     padding: vars.$spacing-sm;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 2px solid transparent;
     
     &:hover {
       color: vars.$primary-color;
+      border-bottom: 2px solid vars.$primary-color;
     }
   }
 }

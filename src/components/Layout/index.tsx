@@ -1,4 +1,3 @@
-// src/components/Layout/index.tsx
 import React, { ReactNode, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Layout.module.scss';
