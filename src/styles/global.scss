@@ -292,14 +292,20 @@ p {
   to { opacity: 1; }
 }
 
-// Scale animation
+// Scale animation - Using string interpolation to avoid SASS confusion
 .scale-in {
   animation: scaleIn 0.3s ease-out;
 }
 
 @keyframes scaleIn {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from { 
+    transform: #{"scale(0.95)"};
+    opacity: 0; 
+  }
+  to { 
+    transform: #{"scale(1)"};
+    opacity: 1; 
+  }
 }
 
 // Slide in from bottom
