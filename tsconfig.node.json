@@ -43,7 +43,6 @@
         "d3-zoom",
         "estree",
         "geojson",
-        "graceful-fs",
         "istanbul-lib-coverage",
         "istanbul-lib-report",
         "istanbul-reports",

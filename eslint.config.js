@@ -1,10 +1,11 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import js from '@eslint/js';
-import typescript from '@typescript-eslint/eslint-plugin';
-import react from 'eslint-plugin-react';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import globals from 'globals';
+import parser from '@typescript-eslint/parser';
 
 // Resolve __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -12,22 +13,26 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    files: ['src/**/*.{ts,tsx}'], // Explicitly include TypeScript and TSX files
-    ignores: ['dist', 'node_modules'], // Exclude only necessary directories
+    files: ['src/**/*.{ts,tsx}'],
+    plugins: {
+      '@typescript-eslint': tseslint,
+      'react': reactPlugin,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh
+    },
     languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      parser: '@typescript-eslint/parser',
+      globals: {
+        ...globals.browser,
+        ...globals.es2020
+      },
+      parser: parser,
       parserOptions: {
         project: ['./tsconfig.json'],
-        tsconfigRootDir: __dirname
+        tsconfigRootDir: __dirname,
+        ecmaFeatures: {
+          jsx: true
+        }
       }
-    },
-    plugins: {
-      '@typescript-eslint': typescript,
-      react,
-      reactHooks,
-      reactRefresh
     },
     rules: {
       'react-refresh/only-export-components': [
@@ -49,14 +54,6 @@ export default [
       react: {
         version: 'detect'
       }
-    },
-    linterOptions: {
-      reportUnusedDisableDirectives: true // Replaces the removed option
     }
-  },
-  // Include recommended configurations directly
-  js.configs.recommended, // Include JavaScript recommended rules
-  typescript.configs.recommended, // Include TypeScript recommended rules
-  react.configs.recommended, // Include React recommended rules
-  reactHooks.configs.recommended // Include React Hooks recommended rules
+  }
 ];

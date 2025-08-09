@@ -8,7 +8,7 @@
 
     // Module and Module Resolution
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
 
     // Strict Type Checking
@@ -26,7 +26,7 @@
 
     // JavaScript and Import Handling
     "allowJs": true,
-    "checkJs": false, // Set to false unless you want to type-check JavaScript files
+    "checkJs": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -63,8 +63,5 @@
 
   // Include and Exclude
   "include": ["src/**/*", "global.d.ts", "vite-env.d.ts"],
-  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"],
-
-  // Project References (if using project references)
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"]
 }

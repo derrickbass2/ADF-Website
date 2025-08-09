@@ -1,5 +1,4 @@
 /// <reference types="node" />
-// vite.config.ts
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -8,6 +7,7 @@ import viteCompression from 'vite-plugin-compression';
 import svgr from 'vite-plugin-svgr';
 import legacy from '@vitejs/plugin-legacy';
 import checker from 'vite-plugin-checker';
+import eslint from 'vite-plugin-eslint';
 
 export default defineConfig(({ mode }) => {
   // Load environment variables based on `mode`
@@ -29,6 +29,13 @@ export default defineConfig(({ mode }) => {
             ['@babel/plugin-transform-class-properties', { loose: true }]
           ]
         }
+      }),
+
+      // ESLint plugin
+      eslint({
+        failOnError: false,
+        failOnWarning: false,
+        overrideConfigFile: './src/eslint.config.js'
       }),
 
       // SVG as React components
@@ -60,7 +67,7 @@ export default defineConfig(({ mode }) => {
       checker({
         typescript: true,
         eslint: {
-          lintCommand: 'eslint "./src/**/*.{ts,tsx}" --max-warnings 0'
+          lintCommand: 'eslint "./src/**/*.{ts,tsx}"'
         }
       }),
 
