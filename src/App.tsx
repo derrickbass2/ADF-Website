@@ -1,10 +1,11 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import InteractiveNodeNavigation from './components/InteractiveNodeNavigation';
 import { navigationNodeData, NodeData } from './models/NodeTypes';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorBoundary from './components/ErrorBoundary';
+import Layout from './components/Layout';
 import ContactPage from './pages/ContactPage';
+import './styles/global.scss';
 
 // Lazy load pages
 const HomePage = React.lazy(() => import('./pages/HomePage'));
@@ -13,7 +14,9 @@ const SparkEnginePage = React.lazy(() => import('./pages/SparkEnginePage'));
 const NeuroTechNetworkPage = React.lazy(() => import('./pages/NeuroTechNetworkPage'));
 const AutonomousAgentGenomePage = React.lazy(() => import('./pages/AutonomousAgentGenomePage'));
 const ResearchPage = React.lazy(() => import('./pages/ResearchPage'));
-const AboutUsPage = React.lazy(() => import('./pages/AboutUsPage'));
+// Uncomment if you add routes that use these components
+// const AboutUsPage = React.lazy(() => import('./pages/AboutUsPage'));
+// const CaseStudiesPage = React.lazy(() => import('./pages/CaseStudiesPage'));
 
 // Define a type for route data transformation
 interface RouteData {
@@ -28,11 +31,7 @@ interface RouteData {
   children?: RouteData[];
 }
 
-
-
 const App: React.FC = () => {
-  const [selectedNode, setSelectedNode] = useState<NodeData | null>(null);
-
   // Helper function to transform navigation node data for route props
   const transformRouteData = (node: NodeData): RouteData => ({
     label: node.name || '',
@@ -46,18 +45,9 @@ const App: React.FC = () => {
     children: node.children?.map(transformRouteData)
   });
 
-  // Handler for node selection
-  const handleNodeSelect = (node: NodeData) => {
-    setSelectedNode(node);
-  };
-
   return (
-    <div className="app-container" role="application">
-      <ErrorBoundary fallback={<div>Something went wrong</div>}>
-        <InteractiveNodeNavigation
-          data={navigationNodeData}
-          onNodeSelect={handleNodeSelect}
-        />
+    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+      <Layout>
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             <Route
@@ -72,7 +62,9 @@ const App: React.FC = () => {
               path="/services"
               element={
                 <ServicesPage
-                  data={navigationNodeData[0].children?.find((node: NodeData) => node.id === 'services')?.children as any}
+                  data={navigationNodeData[0].children?.find(
+                    (node: NodeData) => node.id === 'services'
+                  )?.children as any}
                 />
               }
             />
@@ -81,25 +73,21 @@ const App: React.FC = () => {
             <Route path="/neurotech" element={<NeuroTechNetworkPage />} />
             <Route path="/autonomous-agent-genome" element={<AutonomousAgentGenomePage />} />
             <Route path="/research/projects" element={<ResearchPage />} />
-            <Route path="/about" element={<AboutUsPage />} />
-
             {/* 404 Route */}
             <Route
               path="*"
               element={
-                <div role="alert" aria-label="Page Not Found">
+                <div role="alert" aria-label="Page Not Found" className="error-page">
                   <h1>404 - Page Not Found</h1>
                   <p>The page you are looking for does not exist.</p>
-                  <p>Selected Node: {selectedNode?.name ?? 'None'}</p>
                 </div>
               }
             />
           </Routes>
         </Suspense>
-      </ErrorBoundary>
-    </div>
+      </Layout>
+    </ErrorBoundary>
   );
 };
 
 export default App;
-

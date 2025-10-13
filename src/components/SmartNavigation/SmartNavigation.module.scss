@@ -1,0 +1,110 @@
+// src/components/SmartNavigation/SmartNavigation.module.scss
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+@use 'sass:color';
+
+// String interpolation for scale to avoid sass color function conflicts
+$hover-scale: "scale(1.05)";
+$tap-scale: "scale(0.95)";
+
+.smartNavigation {
+  width: 100%;
+  background-color: $background-color;
+  padding: $spacing-lg;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-subtle;
+  margin-bottom: $spacing-lg;
+  overflow: hidden;
+}
+
+.currentContext {
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-md;
+  border-bottom: 1px solid $light-border;
+}
+
+.activeNodeInfo {
+  h3 {
+    color: $primary-color;
+    font-size: 1.5rem;
+    margin-bottom: $spacing-sm;
+  }
+
+  p {
+    color: $dark-text;
+    line-height: 1.6;
+    font-size: 1rem;
+    margin-bottom: $spacing-md;
+  }
+}
+
+.contextualSuggestions {
+  h4 {
+    color: $secondary-color;
+    font-size: 1.2rem;
+    margin-bottom: $spacing-md;
+    padding-bottom: $spacing-xs;
+    border-bottom: 2px solid $secondary-color;
+    display: inline-block;
+  }
+}
+
+.suggestionButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  background-color: $white;
+  border: 1px solid $light-border;
+  border-radius: $border-radius-sm;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $primary-color;
+    background-color: color.adjust($primary-color, $alpha: -0.9);
+  }
+
+  span {
+    font-weight: 600;
+    color: $primary-color;
+    margin-bottom: $spacing-xs;
+    font-size: 1.1rem;
+  }
+
+  small {
+    color: $light-text;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+
+// Media queries for responsive design
+@include md {
+  .smartNavigation {
+    padding: $spacing-md;
+  }
+  
+  .contextualSuggestions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md;
+    
+    h4 {
+      grid-column: 1 / -1;
+    }
+  }
+  
+  .suggestionButton {
+    margin-bottom: 0;
+  }
+}
+
+@include lg {
+  .contextualSuggestions {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

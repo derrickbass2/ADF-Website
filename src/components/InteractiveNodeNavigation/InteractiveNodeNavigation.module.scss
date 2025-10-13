@@ -1,5 +1,7 @@
-@use "@/styles/variables.scss" as vars;
-@use "@/styles/mixins.scss" as mixins;
+// Make sure the file starts with these imports
+@use '@/styles/variables.scss' as vars;
+@use '@/styles/mixins.scss' as mixins;
+@use 'sass:color';
 
 .navigationContainer {
   position: relative;
@@ -20,8 +22,8 @@
   select, input {
     padding: vars.$spacing-sm;
     border-radius: vars.$border-radius-sm;
-    border: 1px solid vars.$light-text;
-    font-family: vars.$font-primary;
+    border: 1px solid vars.$light-border;
+    font-family: inherit;
   }
 }
 
@@ -43,7 +45,7 @@
   }
 
   p {
-    color: vars.$dark-text;
+    color: vars.$text-primary;
     margin-bottom: vars.$spacing-md;
   }
 
@@ -57,7 +59,23 @@
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: darken(vars.$primary-color, 10%);
+      background-color: color.adjust(vars.$primary-color, $lightness: -10%);
     }
   }
+}
+
+.node {
+  cursor: pointer;
+}
+
+.link {
+  stroke: vars.$light-border;
+  stroke-opacity: 0.6;
+}
+
+// Prevent scale color function issues with string interpolation
+$node-hover-scale: "scale(1.1)";
+
+.node:hover {
+  transform: #{$node-hover-scale};
 }

@@ -1,0 +1,29 @@
+// src/styles/functions.scss
+// Common SCSS functions
+
+// Convert pixels to rem
+@function rem($pixels) {
+    @return $pixels / 16px * 1rem;
+  }
+  
+  // Get color with opacity
+  @function color-opacity($color, $opacity) {
+    @return rgba($color, $opacity);
+  }
+  
+  // Lighten color
+  @function lighten-custom($color, $percentage) {
+    @return lighten($color, $percentage);
+  }
+  
+  // Darken color
+  @function darken-custom($color, $percentage) {
+    @return darken($color, $percentage);
+  }
+  
+  // Get responsive size
+  @function responsive-size($mobile-size, $desktop-size) {
+    @return clamp(#{$mobile-size}, 
+                #{$mobile-size} + ((#{$desktop-size} - #{$mobile-size}) * (100vw - 320px) / (1200 - 320)), 
+                #{$desktop-size});
+  }

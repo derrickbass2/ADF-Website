@@ -1,6 +1,9 @@
 // src/components/ResearchTimeline/ResearchTimeline.module.scss
-@use '../../styles/variables.scss';
-@use '../../styles/mixins.scss';
+@use '../../styles/variables.scss' as *;  // Added 'as *' to access variables directly
+@use '../../styles/mixins.scss' as *;     // Added 'as *' to access mixins directly
+
+// Define the scale value as a string for interpolation
+$scale-value: "scale(1.1)";
 
 .researchTimelineContainer {
   background-color: $background-color;
@@ -24,7 +27,8 @@
   transition: transform 0.3s ease;
 
   &:hover {
-    transform: scale(1.1);
+    // Fixed: Using interpolation to avoid Sass interpreting as color function
+    transform: #{$scale-value};
   }
 }
 
